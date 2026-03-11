@@ -1,0 +1,963 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Book your Cricket or Football turf session at GOAT – Game On Academy & Turf." />
+  <title>Book Your Slot | GOAT – Game On Academy &amp; Turf</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Playfair+Display:wght@700&display=swap"
+    rel="stylesheet" />
+  <!-- Razorpay Checkout Script -->
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+  <style>
+    /* ─── Reset & Base ─── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --green-dark: #0d2b1a;
+      --green-mid: #1a4a2b;
+      --gold: #c9a84c;
+      --gold-light: #f0c040;
+      --white: #ffffff;
+      --gray-light: #e8e8e8;
+      --bg-dark: #0a0a0a;
+      --card-bg: rgba(255, 255, 255, 0.04);
+      --card-border: rgba(201, 168, 76, 0.2);
+      --nav-h: 80px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Outfit', sans-serif;
+      background: var(--bg-dark);
+      color: var(--white);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ─── HEADER ─── */
+    header {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      height: var(--nav-h);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 40px;
+      background: rgba(5, 18, 10, 0.97);
+      backdrop-filter: blur(6px);
+      box-shadow: 0 2px 20px rgba(0, 0, 0, 0.6);
+    }
+
+    .logo-link { display: flex; align-items: center; text-decoration: none; }
+
+    .logo-img {
+      height: 60px; width: 60px; object-fit: contain;
+      border-radius: 50%; border: 2px solid var(--gold);
+      box-shadow: 0 0 14px rgba(201, 168, 76, 0.45);
+      transition: transform 0.3s ease;
+    }
+
+    .logo-link:hover .logo-img { transform: scale(1.07); }
+
+    .back-btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      color: var(--gold-light); text-decoration: none;
+      font-weight: 600; font-size: 0.95rem;
+      padding: 10px 24px; border-radius: 30px;
+      background: rgba(201, 168, 76, 0.1);
+      border: 1px solid rgba(201, 168, 76, 0.3);
+      transition: all 0.3s ease;
+    }
+
+    .back-btn:hover {
+      background: rgba(201, 168, 76, 0.2);
+      border-color: var(--gold);
+      transform: translateY(-2px);
+    }
+
+    /* ─── MAIN LAYOUT ─── */
+    .page-wrapper {
+      padding-top: calc(var(--nav-h) + 40px);
+      min-height: 100vh;
+      display: flex; justify-content: center;
+      padding-bottom: 80px;
+    }
+
+    .booking-container {
+      width: 100%; max-width: 1100px;
+      padding: 0 24px;
+      display: grid;
+      grid-template-columns: 1fr 380px;
+      gap: 32px;
+      align-items: start;
+    }
+
+    @media (max-width: 900px) {
+      .booking-container { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 768px) {
+      header { padding: 0 20px; }
+    }
+
+    /* ─── SECTION TITLES ─── */
+    .page-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 5vw, 3rem);
+      margin-bottom: 8px;
+      background: linear-gradient(90deg, var(--gold) 0%, #fff6c0 40%, var(--gold) 80%);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: shimmer 3s linear infinite;
+    }
+
+    .page-subtitle {
+      color: rgba(255,255,255,0.6); font-size: 1.05rem;
+      margin-bottom: 36px;
+    }
+
+    @keyframes shimmer {
+      0%   { background-position: -200% center; }
+      100% { background-position: 200% center; }
+    }
+
+    /* ─── FORM CARD ─── */
+    .form-card {
+      background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(201,168,76,0.04) 100%);
+      border: 1px solid var(--card-border);
+      border-radius: 24px;
+      padding: 40px 36px;
+      backdrop-filter: blur(12px);
+      position: relative; overflow: hidden;
+    }
+
+    .form-card::before {
+      content: ''; position: absolute;
+      top: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, var(--gold), var(--gold-light));
+      border-radius: 24px 24px 0 0;
+    }
+
+    /* ─── SPORT SELECTOR ─── */
+    .sport-selector {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 14px;
+      margin-bottom: 28px;
+    }
+
+    .sport-option {
+      position: relative;
+      cursor: pointer;
+    }
+
+    .sport-option input { display: none; }
+
+    .sport-label {
+      display: flex; flex-direction: column; align-items: center; gap: 8px;
+      padding: 24px 16px;
+      border-radius: 16px;
+      border: 2px solid rgba(255,255,255,0.1);
+      background: rgba(255,255,255,0.03);
+      transition: all 0.35s ease;
+      cursor: pointer;
+    }
+
+    .sport-label .sport-emoji { font-size: 2.8rem; transition: transform 0.3s ease; }
+    .sport-label .sport-name {
+      font-weight: 600; font-size: 1rem;
+      color: rgba(255,255,255,0.7);
+      transition: color 0.3s ease;
+    }
+
+    .sport-option input:checked + .sport-label {
+      border-color: var(--gold);
+      background: rgba(201, 168, 76, 0.12);
+      box-shadow: 0 0 30px rgba(201, 168, 76, 0.15);
+    }
+
+    .sport-option input:checked + .sport-label .sport-name {
+      color: var(--gold-light);
+    }
+
+    .sport-option input:checked + .sport-label .sport-emoji {
+      transform: scale(1.15);
+    }
+
+    .sport-label:hover {
+      border-color: rgba(201, 168, 76, 0.4);
+      background: rgba(201, 168, 76, 0.06);
+    }
+
+    /* ─── FORM FIELDS ─── */
+    .field-group { margin-bottom: 22px; }
+
+    .field-label {
+      display: block; font-size: 0.82rem;
+      font-weight: 600; letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 8px;
+    }
+
+    .field-input {
+      width: 100%; padding: 14px 18px;
+      border-radius: 12px;
+      border: 1.5px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.06);
+      color: var(--white);
+      font-family: 'Outfit', sans-serif;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+      outline: none;
+    }
+
+    .field-input:focus {
+      border-color: var(--gold);
+      background: rgba(201, 168, 76, 0.06);
+      box-shadow: 0 0 20px rgba(201, 168, 76, 0.1);
+    }
+
+    .field-input::placeholder { color: rgba(255,255,255,0.3); }
+
+    /* Fix date/time input icons for dark theme */
+    .field-input::-webkit-calendar-picker-indicator {
+      filter: invert(1) brightness(0.8);
+      cursor: pointer;
+    }
+
+    .field-row {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 14px;
+    }
+
+    @media (max-width: 480px) {
+      .field-row { grid-template-columns: 1fr; }
+    }
+
+    /* ─── SUBMIT BUTTON ─── */
+    .book-btn {
+      width: 100%; padding: 16px;
+      border: none; border-radius: 14px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.1rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.08em;
+      cursor: pointer;
+      background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
+      color: var(--green-dark);
+      box-shadow: 0 8px 30px rgba(201, 168, 76, 0.35);
+      transition: all 0.35s ease;
+      margin-top: 10px;
+      position: relative; overflow: hidden;
+    }
+
+    .book-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 14px 40px rgba(201, 168, 76, 0.5);
+    }
+
+    .book-btn:active { transform: translateY(0); }
+
+    .book-btn:disabled {
+      opacity: 0.5; cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
+
+    .book-btn .btn-spinner {
+      display: none;
+      width: 20px; height: 20px;
+      border: 3px solid rgba(0,0,0,0.2);
+      border-top-color: var(--green-dark);
+      border-radius: 50%;
+      animation: spin 0.6s linear infinite;
+      margin: 0 auto;
+    }
+
+    .book-btn.loading .btn-text { display: none; }
+    .book-btn.loading .btn-spinner { display: block; }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* ─── RIGHT PANEL: SLOT OVERVIEW ─── */
+    .slots-panel {
+      position: sticky; top: calc(var(--nav-h) + 40px);
+    }
+
+    .slots-card {
+      background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(201,168,76,0.04) 100%);
+      border: 1px solid var(--card-border);
+      border-radius: 24px;
+      padding: 32px 28px;
+      backdrop-filter: blur(12px);
+      position: relative; overflow: hidden;
+    }
+
+    .slots-card::before {
+      content: ''; position: absolute;
+      top: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, var(--gold), var(--gold-light));
+      border-radius: 24px 24px 0 0;
+    }
+
+    .slots-card-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem; color: var(--gold-light);
+      margin-bottom: 6px;
+    }
+
+    .slots-card-date {
+      font-size: 0.85rem; color: rgba(255,255,255,0.5);
+      margin-bottom: 20px;
+    }
+
+    /* Slot timeline */
+    .slot-timeline { display: flex; flex-direction: column; gap: 6px; }
+
+    .slot-row {
+      display: flex; align-items: center; gap: 12px;
+      padding: 10px 14px;
+      border-radius: 10px;
+      font-size: 0.88rem;
+      transition: all 0.25s ease;
+    }
+
+    .slot-row.available {
+      background: rgba(76, 175, 80, 0.08);
+      border: 1px solid rgba(76, 175, 80, 0.2);
+      color: #81c784;
+    }
+
+    .slot-row.booked {
+      background: rgba(244, 67, 54, 0.08);
+      border: 1px solid rgba(244, 67, 54, 0.2);
+      color: #e57373;
+    }
+
+    .slot-dot {
+      width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
+    }
+
+    .slot-row.available .slot-dot { background: #4caf50; box-shadow: 0 0 8px rgba(76,175,80,0.5); }
+    .slot-row.booked .slot-dot { background: #f44336; box-shadow: 0 0 8px rgba(244,67,54,0.5); }
+
+    .slot-time { font-weight: 600; min-width: 120px; }
+    .slot-status { font-weight: 500; font-size: 0.82rem; }
+    .slot-sport { font-size: 0.75rem; opacity: 0.7; margin-left: auto; text-transform: capitalize; }
+
+    .slots-empty {
+      text-align: center; padding: 30px 10px;
+      color: rgba(255,255,255,0.4);
+      font-size: 0.9rem;
+    }
+
+    .slots-loading {
+      text-align: center; padding: 30px;
+      color: var(--gold);
+    }
+
+    /* ─── PRICE PREVIEW ─── */
+    .price-preview {
+      margin-top: 24px; padding-top: 20px;
+      border-top: 1px solid rgba(201,168,76,0.15);
+    }
+
+    .price-row {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: 8px;
+    }
+
+    .price-label { font-size: 0.88rem; color: rgba(255,255,255,0.6); }
+    .price-value { font-weight: 600; color: var(--white); }
+    .price-total {
+      font-size: 1.4rem; font-weight: 700;
+      color: var(--gold-light);
+    }
+
+    /* ─── TOAST / NOTIFICATIONS ─── */
+    .toast-container {
+      position: fixed; top: calc(var(--nav-h) + 16px);
+      right: 24px; z-index: 9999;
+      display: flex; flex-direction: column; gap: 10px;
+    }
+
+    .toast {
+      padding: 16px 24px;
+      border-radius: 14px;
+      font-size: 0.92rem; font-weight: 500;
+      max-width: 400px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+      animation: toastIn 0.4s cubic-bezier(0.2,0.8,0.2,1);
+      backdrop-filter: blur(16px);
+    }
+
+    .toast.success {
+      background: rgba(76, 175, 80, 0.15);
+      border: 1px solid rgba(76, 175, 80, 0.4);
+      color: #a5d6a7;
+    }
+
+    .toast.error {
+      background: rgba(244, 67, 54, 0.15);
+      border: 1px solid rgba(244, 67, 54, 0.4);
+      color: #ef9a9a;
+    }
+
+    .toast.info {
+      background: rgba(33, 150, 243, 0.15);
+      border: 1px solid rgba(33, 150, 243, 0.4);
+      color: #90caf9;
+    }
+
+    @keyframes toastIn {
+      from { opacity: 0; transform: translateX(40px); }
+      to   { opacity: 1; transform: translateX(0); }
+    }
+
+    .toast-exit {
+      animation: toastOut 0.3s ease forwards;
+    }
+    @keyframes toastOut {
+      to { opacity: 0; transform: translateX(40px); }
+    }
+
+    /* ─── SUCCESS OVERLAY ─── */
+    .success-overlay {
+      display: none; position: fixed; inset: 0;
+      background: rgba(0,0,0,0.85);
+      z-index: 10000;
+      justify-content: center; align-items: center;
+    }
+
+    .success-overlay.show { display: flex; }
+
+    .success-card {
+      background: linear-gradient(135deg, #0d2b1a, #1a4a2b);
+      border: 2px solid var(--gold);
+      border-radius: 28px;
+      padding: 48px 40px;
+      text-align: center;
+      max-width: 460px;
+      width: 90%;
+      box-shadow: 0 20px 60px rgba(201, 168, 76, 0.3);
+      animation: successPop 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+
+    @keyframes successPop {
+      from { opacity: 0; transform: scale(0.8); }
+      to   { opacity: 1; transform: scale(1); }
+    }
+
+    .success-icon { font-size: 4rem; margin-bottom: 16px; }
+    .success-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem; color: var(--gold-light);
+      margin-bottom: 12px;
+    }
+    .success-msg {
+      color: rgba(255,255,255,0.8); font-size: 1rem;
+      line-height: 1.7; margin-bottom: 28px;
+    }
+    .success-details {
+      background: rgba(0,0,0,0.3); border-radius: 14px;
+      padding: 18px 20px; margin-bottom: 28px;
+      text-align: left;
+    }
+    .success-details p {
+      display: flex; justify-content: space-between;
+      padding: 6px 0; font-size: 0.9rem;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .success-details p:last-child { border-bottom: none; }
+    .success-details .sd-label { color: rgba(255,255,255,0.5); }
+    .success-details .sd-value { color: var(--gold-light); font-weight: 600; }
+
+    .success-close-btn {
+      padding: 14px 36px; border: none; border-radius: 12px;
+      background: linear-gradient(135deg, var(--gold), var(--gold-light));
+      color: var(--green-dark); font-family: 'Outfit', sans-serif;
+      font-size: 1rem; font-weight: 700; cursor: pointer;
+      text-transform: uppercase; letter-spacing: 0.06em;
+      transition: all 0.3s ease; text-decoration: none;
+      display: inline-block;
+    }
+
+    .success-close-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(201, 168, 76, 0.4);
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: var(--green-dark);
+      padding: 32px 40px;
+      text-align: center;
+      border-top: 1px solid rgba(201, 168, 76, 0.25);
+    }
+
+    footer p { color: rgba(255,255,255,0.5); font-size: 0.85rem; }
+    footer span { color: var(--gold); font-weight: 600; }
+  </style>
+</head>
+
+<body>
+
+  <!-- ══════════ HEADER ══════════ -->
+  <header>
+    <a href="index.html" class="logo-link" aria-label="GOAT Home">
+      <img src="logo.jpg.jpeg" alt="GOAT Logo" class="logo-img" />
+    </a>
+    <a href="index.html" class="back-btn">← Back to Home</a>
+  </header>
+
+  <!-- ══════════ TOAST CONTAINER ══════════ -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <!-- ══════════ SUCCESS OVERLAY ══════════ -->
+  <div class="success-overlay" id="success-overlay">
+    <div class="success-card">
+      <div class="success-icon">🎉</div>
+      <h2 class="success-title">Booking Confirmed!</h2>
+      <p class="success-msg">Your turf session has been booked and payment verified successfully.</p>
+      <div class="success-details" id="success-details"></div>
+      <a href="index.html" class="success-close-btn">Back to Home</a>
+    </div>
+  </div>
+
+  <!-- ══════════ MAIN CONTENT ══════════ -->
+  <div class="page-wrapper">
+    <div class="booking-container">
+
+      <!-- ── LEFT: BOOKING FORM ── -->
+      <div class="form-section">
+        <h1 class="page-title">Book Your Turf</h1>
+        <p class="page-subtitle">Select your sport, pick a date & time, and you're good to go!</p>
+
+        <div class="form-card">
+          <form id="booking-form" autocomplete="off">
+
+            <!-- Sport Selection -->
+            <div class="field-group">
+              <label class="field-label">Choose Your Sport</label>
+              <div class="sport-selector">
+                <label class="sport-option">
+                  <input type="radio" name="sport" value="football" id="sport-football" checked />
+                  <div class="sport-label">
+                    <span class="sport-emoji">⚽</span>
+                    <span class="sport-name">Football</span>
+                  </div>
+                </label>
+                <label class="sport-option">
+                  <input type="radio" name="sport" value="cricket" id="sport-cricket" />
+                  <div class="sport-label">
+                    <span class="sport-emoji">🏏</span>
+                    <span class="sport-name">Cricket</span>
+                  </div>
+                </label>
+              </div>
+            </div>
+
+            <!-- Players -->
+            <div class="field-group">
+              <label class="field-label" for="players">Number of Players</label>
+              <input type="number" id="players" class="field-input" min="1" max="30" value="10"
+                placeholder="e.g. 10" required />
+            </div>
+
+            <!-- Date -->
+            <div class="field-group">
+              <label class="field-label" for="booking-date">Date</label>
+              <input type="date" id="booking-date" class="field-input" required />
+            </div>
+
+            <!-- Time Range -->
+            <div class="field-group">
+              <label class="field-label">Time Slot</label>
+              <div class="field-row">
+                <div>
+                  <input type="time" id="start-time" class="field-input" value="09:00" required />
+                  <small style="color:rgba(255,255,255,0.35);font-size:0.75rem;margin-top:4px;display:block;">Start Time</small>
+                </div>
+                <div>
+                  <input type="time" id="end-time" class="field-input" value="11:00" required />
+                  <small style="color:rgba(255,255,255,0.35);font-size:0.75rem;margin-top:4px;display:block;">End Time</small>
+                </div>
+              </div>
+            </div>
+
+            <!-- Submit -->
+            <button type="submit" class="book-btn" id="book-btn">
+              <span class="btn-text">Check Availability & Book</span>
+              <div class="btn-spinner"></div>
+            </button>
+
+          </form>
+        </div>
+      </div>
+
+      <!-- ── RIGHT: SLOT OVERVIEW ── -->
+      <div class="slots-panel">
+        <div class="slots-card">
+          <h3 class="slots-card-title">📅 Slot Availability</h3>
+          <p class="slots-card-date" id="slots-date-label">Select a date to view slots</p>
+          <div class="slot-timeline" id="slot-timeline">
+            <div class="slots-empty">Pick a date to see booked & available times</div>
+          </div>
+
+          <!-- Price Preview -->
+          <div class="price-preview" id="price-preview" style="display:none;">
+            <div class="price-row">
+              <span class="price-label">Sport</span>
+              <span class="price-value" id="preview-sport">—</span>
+            </div>
+            <div class="price-row">
+              <span class="price-label">Duration</span>
+              <span class="price-value" id="preview-duration">—</span>
+            </div>
+            <div class="price-row">
+              <span class="price-label">Rate</span>
+              <span class="price-value" id="preview-rate">—</span>
+            </div>
+            <div class="price-row" style="margin-top:8px;padding-top:8px;border-top:1px solid rgba(201,168,76,0.15);">
+              <span class="price-label" style="font-size:1rem;color:var(--white);">Total</span>
+              <span class="price-total" id="preview-total">—</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══════════ FOOTER ══════════ -->
+  <footer>
+    <p>&copy; 2026 <span>GOAT – Game On Academy &amp; Turf</span>. All rights reserved.</p>
+  </footer>
+
+  <!-- ══════════ SCRIPTS ══════════ -->
+  <script>
+    // ── Config ──
+    // In production, replace with your Render backend URL
+    // e.g. 'https://goat-turf-backend.onrender.com'
+    const API_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+      ? 'http://localhost:5000'
+      : 'https://YOUR_RENDER_BACKEND_URL.onrender.com';  // ← UPDATE THIS after deploying backend
+    const PRICE_PER_HOUR = { cricket: 1000, football: 1000 };
+
+    // ── DOM Elements ──
+    const form = document.getElementById('booking-form');
+    const bookBtn = document.getElementById('book-btn');
+    const dateInput = document.getElementById('booking-date');
+    const startInput = document.getElementById('start-time');
+    const endInput = document.getElementById('end-time');
+    const slotsDateLabel = document.getElementById('slots-date-label');
+    const slotTimeline = document.getElementById('slot-timeline');
+    const pricePreview = document.getElementById('price-preview');
+
+    // ── Set minimum date to today ──
+    const today = new Date();
+    const yyyy = today.getFullYear();
+    const mm = String(today.getMonth() + 1).padStart(2, '0');
+    const dd = String(today.getDate()).padStart(2, '0');
+    dateInput.setAttribute('min', `${yyyy}-${mm}-${dd}`);
+    dateInput.value = `${yyyy}-${mm}-${dd}`;
+
+    // ── Check URL params for pre-selected sport ──
+    const urlParams = new URLSearchParams(window.location.search);
+    const sportParam = urlParams.get('sport');
+    if (sportParam === 'cricket') {
+      document.getElementById('sport-cricket').checked = true;
+    } else if (sportParam === 'football') {
+      document.getElementById('sport-football').checked = true;
+    }
+
+    // ── Toast notifications ──
+    function showToast(message, type = 'info', duration = 4000) {
+      const container = document.getElementById('toast-container');
+      const toast = document.createElement('div');
+      toast.className = `toast ${type}`;
+      toast.textContent = message;
+      container.appendChild(toast);
+
+      setTimeout(() => {
+        toast.classList.add('toast-exit');
+        setTimeout(() => toast.remove(), 300);
+      }, duration);
+    }
+
+    // ── Price calculation & preview ──
+    function updatePricePreview() {
+      const sport = document.querySelector('input[name="sport"]:checked').value;
+      const start = startInput.value;
+      const end = endInput.value;
+
+      if (!start || !end || end <= start) {
+        pricePreview.style.display = 'none';
+        return;
+      }
+
+      const [sh, sm] = start.split(':').map(Number);
+      const [eh, em] = end.split(':').map(Number);
+      const durationMin = (eh * 60 + em) - (sh * 60 + sm);
+      const durationHrs = durationMin / 60;
+      const rate = PRICE_PER_HOUR[sport] || 1000;
+      const total = Math.round(durationHrs * rate);
+
+      document.getElementById('preview-sport').textContent = sport.charAt(0).toUpperCase() + sport.slice(1);
+      document.getElementById('preview-duration').textContent = `${durationHrs} hour${durationHrs !== 1 ? 's' : ''}`;
+      document.getElementById('preview-rate').textContent = `₹${rate}/hr`;
+      document.getElementById('preview-total').textContent = `₹${total.toLocaleString('en-IN')}`;
+      pricePreview.style.display = 'block';
+    }
+
+    // Listen for changes
+    startInput.addEventListener('change', updatePricePreview);
+    endInput.addEventListener('change', updatePricePreview);
+    document.querySelectorAll('input[name="sport"]').forEach(r => r.addEventListener('change', updatePricePreview));
+    updatePricePreview();
+
+    // ── Fetch & display booked slots for a date ──
+    async function loadSlots(date) {
+      if (!date) return;
+
+      slotsDateLabel.textContent = new Date(date + 'T00:00').toLocaleDateString('en-IN', {
+        weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
+      });
+
+      slotTimeline.innerHTML = '<div class="slots-loading">Loading slots...</div>';
+
+      try {
+        const res = await fetch(`${API_URL}/bookings?date=${date}`);
+        const data = await res.json();
+
+        if (!data.success || !data.bookings.length) {
+          slotTimeline.innerHTML = `
+            <div class="slot-row available">
+              <span class="slot-dot"></span>
+              <span class="slot-time">All Day</span>
+              <span class="slot-status">Available ✓</span>
+            </div>`;
+          return;
+        }
+
+        // Build visual slot blocks
+        const bookedSlots = data.bookings.map(b => ({
+          start: b.start_time.substring(0, 5),
+          end: b.end_time.substring(0, 5),
+          sport: b.sport,
+          status: b.payment_status,
+        }));
+
+        // Generate hourly view from 6 AM to 12 AM
+        let html = '';
+        const hours = [];
+        for (let h = 6; h < 24; h++) {
+          hours.push(`${String(h).padStart(2, '0')}:00`);
+        }
+
+        for (let i = 0; i < hours.length - 1; i++) {
+          const slotStart = hours[i];
+          const slotEnd = hours[i + 1];
+
+          // Check if this hour overlaps with any booking
+          const overlapping = bookedSlots.find(b => b.start < slotEnd && b.end > slotStart);
+
+          if (overlapping) {
+            html += `
+              <div class="slot-row booked">
+                <span class="slot-dot"></span>
+                <span class="slot-time">${formatTime(slotStart)} – ${formatTime(slotEnd)}</span>
+                <span class="slot-status">Booked</span>
+                <span class="slot-sport">${overlapping.sport}</span>
+              </div>`;
+          } else {
+            html += `
+              <div class="slot-row available">
+                <span class="slot-dot"></span>
+                <span class="slot-time">${formatTime(slotStart)} – ${formatTime(slotEnd)}</span>
+                <span class="slot-status">Available</span>
+              </div>`;
+          }
+        }
+
+        slotTimeline.innerHTML = html;
+
+      } catch (err) {
+        console.error('Failed to load slots:', err);
+        slotTimeline.innerHTML = '<div class="slots-empty">Unable to load slots. Is the server running?</div>';
+      }
+    }
+
+    function formatTime(t) {
+      const [h, m] = t.split(':').map(Number);
+      const ampm = h >= 12 ? 'PM' : 'AM';
+      const hr = h % 12 || 12;
+      return `${hr}:${String(m).padStart(2, '0')} ${ampm}`;
+    }
+
+    // Load slots when date changes
+    dateInput.addEventListener('change', () => loadSlots(dateInput.value));
+    // Load on page load
+    loadSlots(dateInput.value);
+
+    // ── Form submission ──
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const sport = document.querySelector('input[name="sport"]:checked').value;
+      const players = parseInt(document.getElementById('players').value);
+      const date = dateInput.value;
+      const start_time = startInput.value;
+      const end_time = endInput.value;
+
+      // Validate
+      if (!sport || !players || !date || !start_time || !end_time) {
+        showToast('Please fill in all fields', 'error');
+        return;
+      }
+
+      if (end_time <= start_time) {
+        showToast('End time must be after start time', 'error');
+        return;
+      }
+
+      if (players < 1 || players > 30) {
+        showToast('Players must be between 1 and 30', 'error');
+        return;
+      }
+
+      // Set loading state
+      bookBtn.disabled = true;
+      bookBtn.classList.add('loading');
+
+      try {
+        // ── Step 1: Check slot availability ──
+        showToast('Checking slot availability...', 'info', 2000);
+
+        const checkRes = await fetch(`${API_URL}/check-slot`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ date, start_time, end_time }),
+        });
+        const checkData = await checkRes.json();
+
+        if (!checkData.available) {
+          showToast(checkData.message || 'Slot not available', 'error');
+          resetBtn();
+          loadSlots(date);
+          return;
+        }
+
+        // ── Step 2: Create booking + Razorpay order ──
+        showToast('Creating your booking...', 'info', 2000);
+
+        const bookRes = await fetch(`${API_URL}/create-booking`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ sport, players, date, start_time, end_time }),
+        });
+        const bookData = await bookRes.json();
+
+        if (!bookData.success) {
+          showToast(bookData.message || 'Failed to create booking', 'error');
+          resetBtn();
+          return;
+        }
+
+        // ── Step 3: Open Razorpay checkout ──
+        const options = {
+          key: bookData.razorpay_key_id,
+          amount: bookData.order.amount,
+          currency: bookData.order.currency,
+          order_id: bookData.order.id,
+          name: 'GOAT – Game On Academy & Turf',
+          description: `${sport.charAt(0).toUpperCase() + sport.slice(1)} Turf Booking | ${formatTime(start_time)} – ${formatTime(end_time)}`,
+          image: 'logo.jpg.jpeg',
+          theme: { color: '#1a4a2b' },
+          handler: async function (response) {
+            // ── Step 4: Verify payment ──
+            showToast('Verifying payment...', 'info', 3000);
+
+            try {
+              const verifyRes = await fetch(`${API_URL}/verify-payment`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                  razorpay_order_id: response.razorpay_order_id,
+                  razorpay_payment_id: response.razorpay_payment_id,
+                  razorpay_signature: response.razorpay_signature,
+                }),
+              });
+              const verifyData = await verifyRes.json();
+
+              if (verifyData.success) {
+                showToast('Booking confirmed! 🎉', 'success', 5000);
+                showSuccessOverlay(verifyData.booking);
+                loadSlots(date);
+              } else {
+                showToast(verifyData.message || 'Payment verification failed', 'error');
+              }
+            } catch (err) {
+              showToast('Error verifying payment. Contact support.', 'error');
+              console.error('Verify error:', err);
+            }
+
+            resetBtn();
+          },
+          modal: {
+            ondismiss: function () {
+              showToast('Payment cancelled. Your slot is held for 10 minutes.', 'info', 5000);
+              resetBtn();
+            },
+          },
+          prefill: {
+            name: '',
+            email: '',
+            contact: '',
+          },
+        };
+
+        const rzp = new Razorpay(options);
+        rzp.on('payment.failed', function (response) {
+          showToast('Payment failed: ' + (response.error.description || 'Unknown error'), 'error', 6000);
+          resetBtn();
+        });
+        rzp.open();
+
+      } catch (err) {
+        console.error('Booking error:', err);
+        showToast('Server connection failed. Is the backend running?', 'error');
+        resetBtn();
+      }
+    });
+
+    function resetBtn() {
+      bookBtn.disabled = false;
+      bookBtn.classList.remove('loading');
+    }
+
+    // ── Success overlay ──
+    function showSuccessOverlay(booking) {
+      const overlay = document.getElementById('success-overlay');
+      const details = document.getElementById('success-details');
+
+      details.innerHTML = `
+        <p><span class="sd-label">Sport</span><span class="sd-value">${booking.sport.charAt(0).toUpperCase() + booking.sport.slice(1)}</span></p>
+        <p><span class="sd-label">Date</span><span class="sd-value">${new Date(booking.date + 'T00:00').toLocaleDateString('en-IN', { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' })}</span></p>
+        <p><span class="sd-label">Time</span><span class="sd-value">${formatTime(booking.start_time)} – ${formatTime(booking.end_time)}</span></p>
+        <p><span class="sd-label">Players</span><span class="sd-value">${booking.players}</span></p>
+        <p><span class="sd-label">Amount Paid</span><span class="sd-value">₹${booking.price.toLocaleString('en-IN')}</span></p>
+        <p><span class="sd-label">Status</span><span class="sd-value" style="color:#81c784;">✓ Confirmed</span></p>
+      `;
+
+      overlay.classList.add('show');
+    }
+  </script>
+
+</body>
+</html>

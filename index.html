@@ -1,0 +1,2328 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="GOAT – Game On Academy & Turf | Book your football and cricket sessions today." />
+  <title>GOAT – Game On Academy &amp; Turf</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Playfair+Display:wght@700&display=swap"
+    rel="stylesheet" />
+
+  <style>
+    /* ─── Reset & Base ─── */
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --green-dark: #0d2b1a;
+      --green-mid: #1a4a2b;
+      --gold: #c9a84c;
+      --gold-light: #f0c040;
+      --white: #ffffff;
+      --gray-light: #e8e8e8;
+      --nav-h: 80px;
+      --nav-h-mob: 64px;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Outfit', sans-serif;
+      background: #0a0a0a;
+      color: var(--white);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ─── HEADER ─── */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      height: var(--nav-h);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 40px;
+      background: linear-gradient(180deg,
+          rgba(0, 0, 0, 0.85) 0%,
+          rgba(0, 0, 0, 0.55) 60%,
+          rgba(0, 0, 0, 0.0) 100%);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      transition: background 0.35s ease, box-shadow 0.35s ease;
+    }
+
+    header.scrolled {
+      background: rgba(5, 18, 10, 0.97);
+      box-shadow: 0 2px 20px rgba(0, 0, 0, 0.6);
+    }
+
+    /* ── Logo ── */
+    .logo-link {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      flex-shrink: 0;
+    }
+
+    .logo-img {
+      height: 60px;
+      width: 60px;
+      object-fit: contain;
+      border-radius: 50%;
+      border: 2px solid var(--gold);
+      box-shadow: 0 0 14px rgba(201, 168, 76, 0.45);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .logo-link:hover .logo-img {
+      transform: scale(1.07);
+      box-shadow: 0 0 22px rgba(201, 168, 76, 0.7);
+    }
+
+    /* ── Nav ── */
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    nav a {
+      position: relative;
+      color: var(--white);
+      text-decoration: none;
+      font-size: 0.95rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      padding: 10px 20px;
+      border-radius: 30px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    nav a::after {
+      display: none;
+    }
+
+    nav a:hover,
+    nav a.active {
+      background: rgba(201, 168, 76, 0.15);
+      border-color: rgba(201, 168, 76, 0.4);
+      color: var(--gold-light);
+      box-shadow: 0 6px 15px rgba(201, 168, 76, 0.2);
+      transform: translateY(-2px);
+    }
+
+    /* ── Hamburger ── */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      justify-content: space-between;
+      width: 28px;
+      height: 20px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      z-index: 1100;
+    }
+
+    .hamburger span {
+      display: block;
+      height: 2.5px;
+      background: var(--white);
+      border-radius: 2px;
+      transition: transform 0.3s ease, opacity 0.3s ease;
+    }
+
+    .hamburger.open span:nth-child(1) {
+      transform: translateY(8.75px) rotate(45deg);
+    }
+
+    .hamburger.open span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .hamburger.open span:nth-child(3) {
+      transform: translateY(-8.75px) rotate(-45deg);
+    }
+
+    /* ─── MOBILE NAV OVERLAY ─── */
+    @media (max-width: 768px) {
+      header {
+        padding: 0 20px;
+        height: var(--nav-h-mob);
+      }
+
+      .hamburger {
+        display: flex;
+      }
+
+      nav {
+        position: fixed;
+        inset: 0;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 16px;
+        background: rgba(5, 18, 10, 0.98);
+        backdrop-filter: blur(16px);
+        transform: translateX(100%);
+        transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      nav.open {
+        transform: translateX(0);
+      }
+
+      nav a {
+        font-size: 1.4rem;
+        font-weight: 600;
+        padding: 12px 32px;
+      }
+    }
+
+    /* ─── HERO / BANNER SECTION ─── */
+    .hero {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      min-height: 600px;
+      overflow: hidden;
+      background: #000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Background Sky */
+    .hero-bg-sky {
+      position: absolute;
+      inset: -30vh 0 -30vh 0;
+      width: 100%;
+      background: linear-gradient(to bottom, #1a4a2b 0%, #0d2b1a 60%, #05120a 100%);
+      transition: background 0.1s linear;
+      z-index: 0;
+    }
+
+    /* Sun */
+    .hero-sun {
+      position: absolute;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, #fff 10%, #ffeb3b 40%, #ff9800 70%, rgba(255, 152, 0, 0) 80%);
+      border-radius: 50%;
+      left: -200px;
+      bottom: 0%;
+      z-index: 1;
+      filter: blur(8px) drop-shadow(0 0 100px #ff9800);
+      transition: transform 0.1s linear, opacity 0.1s linear;
+    }
+
+    /* Moon */
+    .hero-moon {
+      position: absolute;
+      width: 300px;
+      height: 300px;
+      background: radial-gradient(circle, #fff 15%, #e0e0e0 40%, #767676 60%, rgba(118, 118, 118, 0) 80%);
+      border-radius: 50%;
+      right: -150px;
+      bottom: -150px;
+      z-index: 1;
+      filter: blur(4px) drop-shadow(0 0 80px #e0e0e0);
+      transition: opacity 0.1s linear, transform 0.3s linear;
+      opacity: 0;
+    }
+
+    /* Stadium Lights */
+    .stadium-lights {
+      position: absolute;
+      top: 0;
+      left: -5%;
+      right: -5%;
+      height: 40vh;
+      background: radial-gradient(ellipse at top center, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0) 60%);
+      z-index: 2;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+    }
+
+    .stadium-lights::before,
+    .stadium-lights::after {
+      content: '';
+      position: absolute;
+      top: -50px;
+      width: 200px;
+      height: 200px;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0) 70%);
+      border-radius: 50%;
+      filter: blur(20px);
+    }
+
+    .stadium-lights::before {
+      left: 10%;
+    }
+
+    .stadium-lights::after {
+      right: 10%;
+    }
+
+    /* Players Container */
+    .hero-player {
+      position: absolute;
+      bottom: -5%;
+      height: 85vh;
+      width: 45%;
+      pointer-events: auto;
+      transition: transform 1.2s cubic-bezier(0.2, 0.8, 0.2, 1), filter 0.4s ease;
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      z-index: 4;
+    }
+
+    .left-player {
+      left: -5%;
+      transform: translateX(-120%);
+    }
+
+    .right-player {
+      right: -5%;
+      transform: translateX(120%);
+    }
+
+    .hero-player.animate-in {
+      transform: translateX(0);
+    }
+
+    .player-img-wrapper {
+      position: relative;
+      height: 100%;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+    }
+
+    .hero-player img {
+      max-height: 100%;
+      max-width: 100%;
+      object-fit: contain;
+      filter: drop-shadow(0 15px 30px rgba(0, 0, 0, 0.6));
+      transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1), filter 0.5s ease;
+      z-index: 2;
+    }
+
+    .player-glow {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 70%;
+      height: 90%;
+      background: radial-gradient(ellipse at center, rgba(201, 168, 76, 0.2) 0%, rgba(201, 168, 76, 0) 70%);
+      border-radius: 50%;
+      z-index: 1;
+      opacity: 0.5;
+      transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+      filter: blur(30px);
+    }
+
+    .hero-player:hover img {
+      transform: scale(1.08) translateY(-2%);
+      filter: drop-shadow(0 0 40px rgba(201, 168, 76, 0.6));
+    }
+
+    .hero-player:hover .player-glow {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1.15);
+      background: radial-gradient(ellipse at center, rgba(201, 168, 76, 0.5) 0%, rgba(201, 168, 76, 0) 70%);
+    }
+
+    /* Center Content */
+    .hero-center-content {
+      position: relative;
+      z-index: 5;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      max-width: 800px;
+      padding: 0 20px;
+      opacity: 0;
+      transform: translateY(60px);
+      transition: opacity 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) 0.6s, transform 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) 0.6s;
+    }
+
+    .hero-center-content.animate-in {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .hero-main-title {
+      font-family: \'Playfair Display\', serif;
+      font-size: clamp(3rem, 6vw, 5.5rem);
+      line-height: 1.1;
+      font-weight: 700;
+      margin-bottom: 24px;
+      color: var(--white);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      text-shadow: 0 0 20px rgba(0, 0, 0, 0.8), 0 0 40px rgba(201, 168, 76, 0.4);
+      background: linear-gradient(to bottom, #ffffff 0%, var(--gold-light) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-subtext {
+      font-size: clamp(1.2rem, 2vw, 1.6rem);
+      color: rgba(255, 255, 255, 0.95);
+      margin-bottom: 45px;
+      font-weight: 500;
+      letter-spacing: 1px;
+      text-shadow: 0 4px 10px rgba(0, 0, 0, 0.8);
+      max-width: 600px;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .hero-btn {
+      padding: 16px 40px;
+      border-radius: 50px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      text-decoration: none;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    .primary-btn {
+      background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
+      color: var(--green-dark);
+      box-shadow: 0 10px 30px rgba(201, 168, 76, 0.4);
+    }
+
+    .primary-btn::before {
+      content: \'\';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, var(--gold-light) 0%, #fff 100%);
+      z-index: -1;
+      transition: opacity 0.4s ease;
+      opacity: 0;
+    }
+
+    .primary-btn:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 40px rgba(201, 168, 76, 0.7);
+      color: #000;
+    }
+
+    .primary-btn:hover::before {
+      opacity: 1;
+    }
+
+    .secondary-btn {
+      background: rgba(255, 255, 255, 0.1);
+      color: var(--white);
+      border: 2px solid rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    .secondary-btn:hover {
+      background: rgba(255, 255, 255, 0.25);
+      transform: translateY(-5px);
+      border-color: var(--white);
+      box-shadow: 0 15px 40px rgba(255, 255, 255, 0.3);
+    }
+
+    .hero-scroll-hint {
+      position: absolute;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 5px;
+      opacity: 0;
+      animation: heroFadeUp 1s ease 2s forwards;
+      pointer-events: none;
+    }
+
+    .hero-scroll-hint span {
+      display: block;
+      width: 22px;
+      height: 22px;
+      border-right: 2.5px solid rgba(255, 255, 255, 0.7);
+      border-bottom: 2.5px solid rgba(255, 255, 255, 0.7);
+      transform: rotate(45deg);
+      animation: bounce 1.6s ease-in-out infinite;
+    }
+
+    .hero-scroll-hint span:nth-child(2) {
+      animation-delay: 0.2s;
+      opacity: 0.5;
+    }
+
+    @keyframes bounce {
+
+      0%,
+      100% {
+        transform: rotate(45deg) translateY(0);
+      }
+
+      50% {
+        transform: rotate(45deg) translateY(6px);
+      }
+    }
+
+    @keyframes heroFadeUp {
+      0% {
+        opacity: 0;
+        transform: translateY(28px) translateX(-50%);
+      }
+
+      100% {
+        opacity: 1;
+        transform: translateY(0) translateX(-50%);
+      }
+    }
+
+    @media (max-width: 992px) {
+      .hero-player {
+        opacity: 0.25;
+      }
+
+      .hero-center-content {
+        opacity: 1;
+        padding: 0 15px;
+      }
+
+      .hero-main-title {
+        font-size: 3rem;
+      }
+
+      .hero-subtext {
+        font-size: 1.1rem;
+      }
+
+      .hero-btn {
+        padding: 14px 30px;
+        font-size: 1rem;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .hero-player {
+        display: none;
+      }
+
+      .hero-buttons {
+        flex-direction: column;
+        gap: 15px;
+        width: 100%;
+      }
+
+      .hero-btn {
+        display: block;
+        width: 100%;
+        text-align: center;
+      }
+    }
+
+    /* ─── PLACEHOLDER SECTIONS ─── */
+    section.placeholder {
+      min-height: 60vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      padding: 80px 40px;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    section.placeholder h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      color: var(--gold-light);
+      text-align: center;
+    }
+
+    section.placeholder p {
+      max-width: 560px;
+      text-align: center;
+      color: var(--gray-light);
+      font-size: 1.05rem;
+      line-height: 1.7;
+    }
+
+    .pill-btn {
+      display: inline-block;
+      margin-top: 12px;
+      padding: 14px 38px;
+      border: 2px solid var(--gold);
+      border-radius: 50px;
+      color: var(--gold-light);
+      font-family: 'Outfit', sans-serif;
+      font-weight: 600;
+      font-size: 0.95rem;
+      letter-spacing: 0.08em;
+      text-decoration: none;
+      text-transform: uppercase;
+      cursor: pointer;
+      background: transparent;
+      transition: background 0.25s ease, color 0.25s ease, transform 0.2s ease;
+    }
+
+    .pill-btn:hover {
+      background: var(--gold);
+      color: var(--green-dark);
+      transform: translateY(-2px);
+    }
+
+    /* ═══════════════════════════════════
+       CRICKET SECTION
+    ═══════════════════════════════════ */
+
+    /* reuses spinBall, floatBall, ballEntry, trailGlow, slideInLeft, slideInRight,
+       fadeInUp, shimmer, pulseGold keyframes already defined above */
+
+    #cricket {
+      position: relative;
+      background: #070a0e;
+      overflow: hidden;
+    }
+
+    /* ── Cricket ball intro ── */
+    .cricket-ball-intro {
+      position: relative;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 60px 20px 10px;
+      pointer-events: none;
+    }
+
+    .cricket-ball-intro .cball-wrap {
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+    }
+
+    .cricket-ball-intro .cball-wrap.animate {
+      animation: ballEntry 0.9s cubic-bezier(0.34, 1.56, 0.64, 1) forwards,
+        floatBall 3s ease-in-out 1s infinite,
+        trailGlow 3s ease-in-out 1s infinite;
+    }
+
+    .cricket-ball-intro .cball-emoji {
+      font-size: 6rem;
+      line-height: 1;
+      display: block;
+    }
+
+    .cricket-ball-intro .cball-wrap.animate .cball-emoji {
+      animation: spinBall 0.9s ease-out 0s 1,
+        spinBall 2.5s linear 1s infinite;
+    }
+
+    /* ── Slideshow parallax panel ── */
+    .cricket-parallax {
+      position: relative;
+      min-height: 55vh;
+      display: flex;
+      align-items: flex-end;
+      overflow: hidden;
+    }
+
+    /* Individual slides */
+    .cricket-slide {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center center;
+      background-attachment: fixed;
+      opacity: 0;
+      transition: opacity 1.2s ease;
+      z-index: 0;
+    }
+
+    .cricket-slide.active {
+      opacity: 1;
+    }
+
+    .cricket-slide:nth-child(1) {
+      background-image: url('turf1.jpg.jpeg');
+    }
+
+    .cricket-slide:nth-child(2) {
+      background-image: url('turf2.jpg.jpeg');
+    }
+
+    .cricket-slide:nth-child(3) {
+      background-image: url('turf3.jpg.jpeg');
+    }
+
+    .cricket-slide:nth-child(4) {
+      background-image: url('turf4.jpg.jpeg');
+    }
+
+    /* gradient overlay */
+    .cricket-parallax::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom,
+          rgba(7, 10, 14, 0.45) 0%,
+          rgba(7, 10, 14, 0.82) 70%,
+          rgba(7, 10, 14, 1) 100%);
+      z-index: 1;
+    }
+
+    @media (max-width: 768px) {
+      .cricket-slide {
+        background-attachment: scroll;
+      }
+    }
+
+    /* ── Cricket content ── */
+    .cricket-content {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 0 24px 70px;
+    }
+
+    .cricket-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.4rem, 6vw, 3.8rem);
+      text-align: center;
+      margin-bottom: 6px;
+      background: linear-gradient(90deg, #4fc3f7 0%, #b3e5fc 40%, #4fc3f7 80%);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      opacity: 0;
+    }
+
+    .cricket-title.animate {
+      animation: shimmer 2.5s linear infinite, fadeInUp 0.7s ease 0.1s forwards;
+    }
+
+    .cricket-intro {
+      max-width: 720px;
+      margin: 0 auto 44px;
+      text-align: center;
+      color: rgba(255, 255, 255, 0.85);
+      font-size: 1.05rem;
+      line-height: 1.8;
+      opacity: 0;
+    }
+
+    .cricket-intro.animate {
+      animation: fadeInUp 0.7s ease 0.3s forwards;
+    }
+
+    .cricket-intro strong {
+      color: #81d4fa;
+      font-weight: 600;
+    }
+
+    /* ── Feature cards ── */
+    .cricket-features-heading {
+      text-align: center;
+      font-size: 1rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #4fc3f7;
+      margin-bottom: 28px;
+      opacity: 0;
+    }
+
+    .cricket-features-heading.animate {
+      animation: fadeInUp 0.6s ease 0.45s forwards;
+    }
+
+    .cricket-features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 22px;
+      margin-bottom: 50px;
+    }
+
+    .cricket-feature-card {
+      background: linear-gradient(135deg,
+          rgba(255, 255, 255, 0.05) 0%,
+          rgba(79, 195, 247, 0.07) 100%);
+      border: 1px solid rgba(79, 195, 247, 0.22);
+      border-radius: 18px;
+      padding: 30px 24px;
+      text-align: center;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+      opacity: 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cricket-feature-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      border-radius: 18px 18px 0 0;
+      background: linear-gradient(90deg, #4fc3f7, #b3e5fc);
+    }
+
+    .cricket-feature-card.animate-left {
+      animation: slideInLeft 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    .cricket-feature-card.animate-up {
+      animation: fadeInUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.12s forwards;
+    }
+
+    .cricket-feature-card.animate-right {
+      animation: slideInRight 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.24s forwards;
+    }
+
+    .cricket-feature-card:hover {
+      transform: translateY(-6px) scale(1.02);
+      border-color: rgba(79, 195, 247, 0.55);
+      box-shadow: 0 16px 48px rgba(79, 195, 247, 0.14);
+    }
+
+    .cf-icon {
+      font-size: 2.6rem;
+      display: block;
+      margin-bottom: 14px;
+      filter: drop-shadow(0 2px 8px rgba(79, 195, 247, 0.4));
+    }
+
+    .cf-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem;
+      color: #b3e5fc;
+      margin-bottom: 8px;
+    }
+
+    .cf-desc {
+      font-size: 0.86rem;
+      color: rgba(255, 255, 255, 0.6);
+      line-height: 1.6;
+    }
+
+    /* ── Cricket CTA ── */
+    .cricket-cta {
+      text-align: center;
+      opacity: 0;
+    }
+
+    .cricket-cta.animate {
+      animation: fadeInUp 0.7s ease 0.6s forwards;
+    }
+
+    .cricket-cta .pill-btn {
+      background: linear-gradient(135deg, #0288d1 0%, #4fc3f7 100%);
+      color: #fff;
+      border-color: transparent;
+      font-size: 1rem;
+      padding: 16px 44px;
+      box-shadow: 0 6px 32px rgba(79, 195, 247, 0.3);
+    }
+
+    .cricket-cta .pill-btn:hover {
+      background: #4fc3f7;
+      color: #07111a;
+      transform: translateY(-3px) scale(1.04);
+      box-shadow: 0 12px 40px rgba(79, 195, 247, 0.4);
+    }
+
+    #booking {
+      background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+    }
+
+    /* ═══════════════════════════════════
+       CONTACT SECTION
+    ═══════════════════════════════════ */
+
+    #contact {
+      position: relative;
+      background: #070e07;
+      overflow: hidden;
+    }
+
+    /* ── Parallax background ── */
+    .contact-parallax {
+      position: relative;
+      background-image: url('turf2.jpg.jpeg');
+      background-attachment: fixed;
+      background-size: cover;
+      background-position: center center;
+      min-height: 60vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .contact-parallax::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg,
+          rgba(5, 15, 8, 0.88) 0%,
+          rgba(10, 28, 15, 0.80) 50%,
+          rgba(5, 15, 8, 0.92) 100%);
+    }
+
+    @media (max-width: 768px) {
+      .contact-parallax {
+        background-attachment: scroll;
+      }
+    }
+
+    /* ── Content wrapper ── */
+    .contact-content {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 80px 24px 80px;
+      text-align: center;
+    }
+
+    /* ── Section eyebrow ── */
+    .contact-eyebrow {
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 14px;
+      opacity: 0;
+    }
+
+    .contact-eyebrow.animate {
+      animation: fadeInUp 0.6s ease forwards;
+    }
+
+    /* ── Title ── */
+    .contact-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.4rem, 6vw, 3.8rem);
+      margin-bottom: 16px;
+      background: linear-gradient(90deg, var(--gold) 0%, #fff6c0 40%, var(--gold) 80%);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      opacity: 0;
+    }
+
+    .contact-title.animate {
+      animation: shimmer 2.5s linear infinite, fadeInUp 0.7s ease 0.15s forwards;
+    }
+
+    /* ── Divider line ── */
+    .contact-divider {
+      width: 60px;
+      height: 3px;
+      background: linear-gradient(90deg, var(--gold), var(--gold-light));
+      border-radius: 2px;
+      margin: 0 auto 48px;
+      opacity: 0;
+    }
+
+    .contact-divider.animate {
+      animation: fadeInUp 0.5s ease 0.3s forwards;
+    }
+
+    /* ── Cards grid ── */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 24px;
+      margin-bottom: 52px;
+    }
+
+    .contact-card {
+      background: linear-gradient(135deg,
+          rgba(255, 255, 255, 0.05) 0%,
+          rgba(201, 168, 76, 0.05) 100%);
+      border: 1px solid rgba(201, 168, 76, 0.2);
+      border-radius: 20px;
+      padding: 36px 28px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+      opacity: 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .contact-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      border-radius: 20px 20px 0 0;
+      background: linear-gradient(90deg, var(--gold), var(--gold-light));
+    }
+
+    .contact-card:hover {
+      transform: translateY(-6px) scale(1.02);
+      border-color: rgba(201, 168, 76, 0.55);
+      box-shadow: 0 18px 52px rgba(201, 168, 76, 0.15);
+    }
+
+    .contact-card.animate-left {
+      animation: slideInLeft 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    .contact-card.animate-up {
+      animation: fadeInUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.12s forwards;
+    }
+
+    .contact-card.animate-right {
+      animation: slideInRight 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.24s forwards;
+    }
+
+    /* icon circle */
+    .contact-icon-wrap {
+      width: 62px;
+      height: 62px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, rgba(201, 168, 76, 0.15), rgba(201, 168, 76, 0.05));
+      border: 1.5px solid rgba(201, 168, 76, 0.35);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .contact-icon-wrap svg {
+      width: 28px;
+      height: 28px;
+      fill: none;
+      stroke: var(--gold-light);
+      stroke-width: 1.8;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .contact-card-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+
+    .contact-card-value {
+      font-size: 0.97rem;
+      color: rgba(255, 255, 255, 0.85);
+      line-height: 1.65;
+      font-weight: 400;
+    }
+
+    .contact-card-value a {
+      color: var(--gold-light);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .contact-card-value a:hover {
+      color: var(--white);
+    }
+
+    /* ── Map embed ── */
+    .contact-map-wrap {
+      border-radius: 20px;
+      overflow: hidden;
+      border: 1px solid rgba(201, 168, 76, 0.2);
+      box-shadow: 0 8px 40px rgba(0, 0, 0, 0.5);
+      opacity: 0;
+      margin-bottom: 0;
+    }
+
+    .contact-map-wrap.animate {
+      animation: fadeInUp 0.8s ease 0.5s forwards;
+    }
+
+    .contact-map-wrap iframe {
+      display: block;
+      width: 100%;
+      height: 340px;
+      border: none;
+      filter: grayscale(30%) contrast(1.05);
+    }
+
+    /* Icon decoration */
+    .section-icon {
+      font-size: 3rem;
+      margin-bottom: 8px;
+    }
+
+    /* ═══════════════════════════════════
+       FOOTBALL SECTION
+    ═══════════════════════════════════ */
+
+    /* ── Spinning football keyframes ── */
+    @keyframes spinBall {
+      0% {
+        transform: rotate(0deg) scale(1);
+      }
+
+      50% {
+        transform: rotate(180deg) scale(1.12);
+      }
+
+      100% {
+        transform: rotate(360deg) scale(1);
+      }
+    }
+
+    @keyframes floatBall {
+
+      0%,
+      100% {
+        transform: translateY(0px) rotate(0deg);
+      }
+
+      50% {
+        transform: translateY(-18px) rotate(180deg);
+      }
+    }
+
+    @keyframes ballEntry {
+      0% {
+        opacity: 0;
+        transform: scale(0.3) rotate(-180deg);
+      }
+
+      60% {
+        opacity: 1;
+        transform: scale(1.15) rotate(20deg);
+      }
+
+      100% {
+        opacity: 1;
+        transform: scale(1) rotate(0deg);
+      }
+    }
+
+    @keyframes trailGlow {
+      0% {
+        box-shadow: 0 0 0 0 rgba(201, 168, 76, 0);
+      }
+
+      50% {
+        box-shadow: 0 0 40px 20px rgba(201, 168, 76, 0.35);
+      }
+
+      100% {
+        box-shadow: 0 0 0 0 rgba(201, 168, 76, 0);
+      }
+    }
+
+    @keyframes slideInLeft {
+      0% {
+        opacity: 0;
+        transform: translateX(-60px);
+      }
+
+      100% {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    @keyframes slideInRight {
+      0% {
+        opacity: 0;
+        transform: translateX(60px);
+      }
+
+      100% {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    @keyframes fadeInUp {
+      0% {
+        opacity: 0;
+        transform: translateY(40px);
+      }
+
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes shimmer {
+      0% {
+        background-position: -200% center;
+      }
+
+      100% {
+        background-position: 200% center;
+      }
+    }
+
+    @keyframes pulseGold {
+
+      0%,
+      100% {
+        box-shadow: 0 0 0 0 rgba(201, 168, 76, 0.5);
+      }
+
+      50% {
+        box-shadow: 0 0 0 10px rgba(201, 168, 76, 0);
+      }
+    }
+
+    /* ════════════════════════════════════════
+       FOOTBALL SECTION  
+    ════════════════════════════════════════ */
+
+    /* ── Section wrapper ── */
+    #football {
+      position: relative;
+      background: #060e0a;
+      overflow: hidden;
+    }
+
+    /* ── Photo slideshow parallax panel ── */
+    .football-parallax {
+      position: relative;
+      min-height: 62vh;
+      display: flex;
+      align-items: flex-end;
+      overflow: hidden;
+    }
+
+    /* Individual photo slides */
+    .football-slide {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center center;
+      background-attachment: fixed;
+      opacity: 0;
+      transition: opacity 1.4s ease;
+      z-index: 0;
+      transform: scale(1.08);
+      animation: kenBurns 12s ease-in-out infinite alternate;
+    }
+
+    .football-slide.active {
+      opacity: 1;
+    }
+
+    .football-slide:nth-child(1) { background-image: url('goat1.jpg.jpeg'); animation-delay: 0s; }
+    .football-slide:nth-child(2) { background-image: url('goat.jpg.jpeg');  animation-delay: 4s; }
+    .football-slide:nth-child(3) { background-image: url('goat 2.jpg.jpeg'); animation-delay: 8s; }
+    .football-slide:nth-child(4) { background-image: url('Tf1.jpg'); animation-delay: 12s; }
+
+    @keyframes kenBurns {
+      0%   { transform: scale(1.0) translate(0%, 0%); }
+      50%  { transform: scale(1.08) translate(-1%, -1%); }
+      100% { transform: scale(1.04) translate(1%, 0%); }
+    }
+
+    /* Gradient overlay so text stays readable */
+    .football-parallax::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom,
+          rgba(6, 14, 10, 0.35) 0%,
+          rgba(6, 14, 10, 0.72) 65%,
+          rgba(6, 14, 10, 1)    100%);
+      z-index: 1;
+    }
+
+    /* Slide indicators (dots) */
+    .football-slide-dots {
+      position: absolute;
+      bottom: 22px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 9px;
+      z-index: 4;
+    }
+
+    .football-slide-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.35);
+      border: 1.5px solid rgba(201,168,76,0.5);
+      cursor: pointer;
+      transition: all 0.35s ease;
+    }
+
+    .football-slide-dot.active {
+      background: var(--gold-light);
+      border-color: var(--gold-light);
+      transform: scale(1.35);
+      box-shadow: 0 0 8px rgba(240,192,64,0.7);
+    }
+
+    @media (max-width: 768px) {
+      .football-slide {
+        background-attachment: scroll;
+        background-position: center top;
+      }
+    }
+
+    /* ── Spinning ball intro overlay ── */
+    .football-ball-intro {
+      position: relative;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 60px 20px 10px;
+      pointer-events: none;
+    }
+
+    .football-ball-intro .ball-wrap {
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+    }
+
+    .football-ball-intro .ball-wrap.animate {
+      animation: ballEntry 0.9s cubic-bezier(0.34, 1.56, 0.64, 1) forwards,
+        floatBall 3s ease-in-out 1s infinite,
+        trailGlow 3s ease-in-out 1s infinite;
+    }
+
+    .football-ball-intro .ball-emoji {
+      font-size: 6rem;
+      line-height: 1;
+      display: block;
+      /* spin the actual emoji */
+      animation: spinBall 2s linear infinite;
+    }
+
+    .football-ball-intro .ball-wrap.animate .ball-emoji {
+      animation: spinBall 0.9s ease-out 0s 1,
+        spinBall 2.5s linear 1s infinite;
+    }
+
+    /* ── Parallax hero panel ── */
+    .football-parallax {
+      position: relative;
+      background-image: url('archivement.jpg.jpeg');
+      background-attachment: fixed;
+      background-size: cover;
+      background-position: center center;
+      min-height: 55vh;
+      display: flex;
+      align-items: flex-end;
+    }
+
+    /* gradient overlay so text stays readable */
+    .football-parallax::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom,
+          rgba(6, 14, 10, 0.45) 0%,
+          rgba(6, 14, 10, 0.82) 70%,
+          rgba(6, 14, 10, 1) 100%);
+    }
+
+    /* Fallback for mobile (fixed attachment not always supported) */
+    @media (max-width: 768px) {
+      .football-parallax {
+        background-attachment: scroll;
+        background-position: center top;
+      }
+    }
+
+    /* ── Content overlay on/below parallax ── */
+    .football-content {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 0 24px 70px;
+    }
+
+    /* Section title */
+    .football-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.4rem, 6vw, 3.8rem);
+      color: var(--gold-light);
+      text-align: center;
+      margin-bottom: 6px;
+      background: linear-gradient(90deg, var(--gold) 0%, #fff6c0 40%, var(--gold) 80%);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      opacity: 0;
+      animation: none;
+    }
+
+    .football-title.animate {
+      animation: shimmer 2.5s linear infinite, fadeInUp 0.7s ease 0.1s forwards;
+    }
+
+    /* Intro paragraph */
+    .football-intro {
+      max-width: 720px;
+      margin: 0 auto 44px;
+      text-align: center;
+      color: rgba(255, 255, 255, 0.85);
+      font-size: 1.05rem;
+      line-height: 1.8;
+      opacity: 0;
+    }
+
+    .football-intro.animate {
+      animation: fadeInUp 0.7s ease 0.3s forwards;
+    }
+
+    .football-intro strong {
+      color: var(--gold-light);
+      font-weight: 600;
+    }
+
+    /* ── Achievements heading ── */
+    .achievements-heading {
+      text-align: center;
+      font-size: 1rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 28px;
+      opacity: 0;
+    }
+
+    .achievements-heading.animate {
+      animation: fadeInUp 0.6s ease 0.45s forwards;
+    }
+
+    /* ── Achievement cards grid ── */
+    .achievements-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+      margin-bottom: 50px;
+    }
+
+    .achievement-card {
+      background: linear-gradient(135deg,
+          rgba(255, 255, 255, 0.06) 0%,
+          rgba(201, 168, 76, 0.06) 100%);
+      border: 1px solid rgba(201, 168, 76, 0.25);
+      border-radius: 18px;
+      padding: 32px 28px;
+      display: flex;
+      align-items: flex-start;
+      gap: 20px;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+      opacity: 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .achievement-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      border-radius: 18px 18px 0 0;
+    }
+
+    .achievement-card.gold-card::before {
+      background: linear-gradient(90deg, var(--gold), var(--gold-light));
+    }
+
+    .achievement-card.silver-card::before {
+      background: linear-gradient(90deg, #9e9e9e, #d4d4d4);
+    }
+
+    .achievement-card.animate-left {
+      animation: slideInLeft 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    .achievement-card.animate-right {
+      animation: slideInRight 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.15s forwards;
+    }
+
+    .achievement-card:hover {
+      transform: translateY(-6px) scale(1.02);
+      border-color: rgba(201, 168, 76, 0.65);
+      box-shadow: 0 16px 48px rgba(201, 168, 76, 0.18);
+    }
+
+    .badge-icon {
+      font-size: 3rem;
+      flex-shrink: 0;
+      line-height: 1;
+      filter: drop-shadow(0 2px 8px rgba(201, 168, 76, 0.45));
+    }
+
+    .achievement-card.gold-card .badge-icon {
+      animation: pulseGold 2.5s ease infinite;
+    }
+
+    .card-result {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+
+    .achievement-card.gold-card .card-result {
+      color: var(--gold-light);
+    }
+
+    .achievement-card.silver-card .card-result {
+      color: #c8c8c8;
+    }
+
+    .card-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      color: var(--white);
+      line-height: 1.35;
+      margin-bottom: 10px;
+    }
+
+    .card-venue {
+      font-size: 0.82rem;
+      color: rgba(255, 255, 255, 0.55);
+      line-height: 1.5;
+      display: flex;
+      align-items: flex-start;
+      gap: 5px;
+    }
+
+    .card-venue::before {
+      content: '📍';
+      font-size: 0.8rem;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    /* ── CTA button ── */
+    .football-cta {
+      text-align: center;
+      opacity: 0;
+    }
+
+    .football-cta.animate {
+      animation: fadeInUp 0.7s ease 0.6s forwards;
+    }
+
+    .football-cta .pill-btn {
+      background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
+      color: var(--green-dark);
+      border-color: transparent;
+      font-size: 1rem;
+      padding: 16px 44px;
+      box-shadow: 0 6px 32px rgba(201, 168, 76, 0.35);
+      animation: pulseGold 2.5s ease infinite;
+    }
+
+    .football-cta .pill-btn:hover {
+      background: var(--gold-light);
+      color: var(--green-dark);
+      transform: translateY(-3px) scale(1.04);
+      box-shadow: 0 12px 40px rgba(240, 192, 64, 0.45);
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: var(--green-dark);
+      padding: 32px 40px;
+      text-align: center;
+      border-top: 1px solid rgba(201, 168, 76, 0.25);
+    }
+
+    footer p {
+      color: rgba(255, 255, 255, 0.5);
+      font-size: 0.85rem;
+      letter-spacing: 0.04em;
+    }
+
+    footer span {
+      color: var(--gold);
+      font-weight: 600;
+    }
+
+    /* ─── SCROLL ANIMATION HELPER ─── */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+
+    .fade-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ══════════════ HEADER ══════════════ -->
+  <header id="site-header">
+    <a href="#home" class="logo-link" aria-label="GOAT Home">
+      <img src="logo.jpg.jpeg" alt="GOAT – Game On Academy &amp; Turf Logo" class="logo-img" />
+    </a>
+
+    <button class="hamburger" id="hamburger" aria-label="Toggle navigation" aria-expanded="false">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+    <nav id="main-nav" role="navigation" aria-label="Main navigation">
+      <a href="#home" class="active" id="nav-home">Home</a>
+      <a href="#football" id="nav-football">Football</a>
+      <a href="#cricket" id="nav-cricket">Cricket</a>
+      <a href="#booking" id="nav-booking">Booking</a>
+      <a href="#contact" id="nav-contact">Contact Us</a>
+    </nav>
+  </header>
+
+  <!-- ══════════════ HERO BANNER ══════════════ -->
+  <section class="hero" id="home" aria-label="Animated day-to-night hero banner">
+
+    <!-- Background Elements -->
+    <div class="hero-bg-sky" id="hero-bg-sky"></div>
+    <div class="hero-sun" id="hero-sun"></div>
+    <div class="hero-moon" id="hero-moon"></div>
+    <div class="stadium-lights" id="stadium-lights"></div>
+
+    <!-- Players -->
+    <div class="hero-player left-player" id="left-player">
+      <div class="player-glow"></div>
+      <img src="football bg.png"
+        style="mask-image: linear-gradient(to top, transparent 0%, black 15%); -webkit-mask-image: linear-gradient(to top, transparent 0%, black 15%); border-radius: 20px;"
+        alt="Football Player" />
+    </div>
+    <div class="hero-player right-player" id="right-player">
+      <div class="player-glow"></div>
+      <img src="cricket bg.png"
+        style="mask-image: linear-gradient(to top, transparent 0%, black 15%); -webkit-mask-image: linear-gradient(to top, transparent 0%, black 15%); border-radius: 20px;"
+        alt="Cricket Player" />
+    </div>
+
+    <!-- Center Content -->
+    <div class="hero-center-content" id="hero-center">
+      <h1 class="hero-main-title">Train Like a Champion</h1>
+      <p class="hero-subtext">Football and Cricket Summer Camp Training</p>
+      <div class="hero-buttons">
+        <a href="#booking" class="hero-btn primary-btn">Book Your Slot</a>
+        <a href="#football" class="hero-btn secondary-btn">View Achievements</a>
+      </div>
+    </div>
+
+    <!-- Scroll hint -->
+    <div class="hero-scroll-hint" aria-hidden="true">
+      <span></span><span></span>
+    </div>
+
+  </section>
+
+  <!-- ══════════════ FOOTBALL SECTION ══════════════ -->
+  <section id="football">
+
+    <!-- ── Spinning football intro ── -->
+    <div class="football-ball-intro" id="football-ball-intro">
+      <div class="ball-wrap" id="ball-wrap">
+        <span class="ball-emoji">⚽</span>
+      </div>
+    </div>
+
+    <!-- ══ GOAT PHOTO SLIDESHOW BANNER ══ -->
+    <div class="football-parallax" id="football-parallax">
+
+      <!-- Three GOAT photos as full-width background slides -->
+      <div class="football-slide active"></div>
+      <div class="football-slide"></div>
+      <div class="football-slide"></div>
+      <div class="football-slide"></div>
+
+      <!-- Slide dot indicators -->
+      <div class="football-slide-dots" id="football-slide-dots">
+        <span class="football-slide-dot active" data-idx="0"></span>
+        <span class="football-slide-dot" data-idx="1"></span>
+        <span class="football-slide-dot" data-idx="2"></span>
+        <span class="football-slide-dot" data-idx="3"></span>
+      </div>
+
+      <!-- Content overlaid on top of photos -->
+      <div class="football-content">
+
+        <h2 class="football-title" id="football-title">Football at GOAT</h2>
+
+        <p class="football-intro" id="football-intro">
+          At <strong>GOAT – Game On Academy &amp; Turf</strong>, football is more than a sport — it's a way of life.
+          Our <strong>premium playing surfaces</strong> and <strong>floodlit turfs</strong> give every player
+          the perfect arena to shine. With guidance from our <strong>dedicated expert coaches</strong>,
+          young athletes receive structured, progressive training designed to sharpen their skills and
+          build their confidence. Our <strong>youth development academy</strong> is committed to nurturing
+          the next generation of champions, providing world-class facilities and a culture that
+          champions discipline, teamwork, and the love of the beautiful game.
+        </p>
+
+        <p class="achievements-heading" id="achievements-heading">🏆 Our Achievements</p>
+
+        <!-- Achievement cards -->
+        <div class="achievements-grid" id="achievements-grid">
+
+          <div class="achievement-card gold-card" id="ach-card-1">
+            <span class="badge-icon">🏆</span>
+            <div class="card-body">
+              <p class="card-result">🥇 Winners</p>
+              <h3 class="card-title">Under-14 Boys</h3>
+              <p class="card-venue">Game On Academy and Turf, Periyanaickenpalayam, Coimbatore</p>
+            </div>
+          </div>
+
+          <div class="achievement-card silver-card" id="ach-card-2">
+            <span class="badge-icon">🥈</span>
+            <div class="card-body">
+              <p class="card-result">Runners Up</p>
+              <h3 class="card-title">Under-12 Boys</h3>
+              <p class="card-venue">5s Crew Turf, Thudiyalur, Coimbatore</p>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- CTA -->
+        <div class="football-cta" id="football-cta">
+          <a href="booking.html?sport=football" class="pill-btn">⚽ Book Slot for Football</a>
+        </div>
+
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ══════════════ CRICKET SECTION ══════════════ -->
+  <section id="cricket">
+
+    <!-- Spinning cricket ball intro -->
+    <div class="cricket-ball-intro">
+      <div class="cball-wrap" id="cball-wrap">
+        <span class="cball-emoji">🏏</span>
+      </div>
+    </div>
+
+    <!-- Slideshow parallax background panel -->
+    <div class="cricket-parallax" id="cricket-parallax">
+      <div class="cricket-slide active"></div>
+      <div class="cricket-slide"></div>
+      <div class="cricket-slide"></div>
+      <div class="cricket-slide"></div>
+
+      <!-- Content sits over the slides -->
+      <div class="cricket-content">
+
+        <h2 class="cricket-title" id="cricket-title">Cricket at GOAT</h2>
+
+        <p class="cricket-intro" id="cricket-intro">
+          At <strong>GOAT – Game On Academy &amp; Turf</strong>, cricket is played with passion and purpose.
+          Our <strong>professional-grade net practice lanes</strong> and <strong>open batting areas</strong>
+          give every player the space to perfect their game. Expert coaches deliver
+          <strong>structured training programmes</strong> tailored to all skill levels — from
+          grassroots beginners to competitive club players. We cultivate a culture of
+          <strong>discipline, sportsmanship, and relentless improvement</strong>,
+          building the cricketers of tomorrow right here at our academy.
+        </p>
+
+        <p class="cricket-features-heading" id="cricket-features-heading">🏏 What We Offer</p>
+
+        <!-- Feature cards -->
+        <div class="cricket-features-grid">
+
+          <div class="cricket-feature-card" id="cf-card-1">
+            <span class="cf-icon">🕸️</span>
+            <h3 class="cf-title">Net Practice Lanes</h3>
+            <p class="cf-desc">Professional-grade nets for batting and bowling practice — available for individual and
+              group sessions.</p>
+          </div>
+
+          <div class="cricket-feature-card" id="cf-card-2">
+            <span class="cf-icon">🧑‍🏫</span>
+            <h3 class="cf-title">Expert Coaching</h3>
+            <p class="cf-desc">Certified coaches with years of competitive experience guiding you through technique,
+              fitness, and strategy.</p>
+          </div>
+
+          <div class="cricket-feature-card" id="cf-card-3">
+            <span class="cf-icon">🌟</span>
+            <h3 class="cf-title">All Skill Levels</h3>
+            <p class="cf-desc">Beginner-friendly programmes and advanced training tracks — everyone has a place at GOAT
+              Cricket Academy.</p>
+          </div>
+
+        </div>
+
+        <!-- CTA -->
+        <div class="cricket-cta" id="cricket-cta">
+          <a href="booking.html?sport=cricket" class="pill-btn">🏏 Book Slot for Cricket</a>
+        </div>
+
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ══════════════ BOOKING SECTION ══════════════ -->
+  <section class="placeholder fade-up" id="booking">
+    <div class="section-icon">📅</div>
+    <h2>Booking</h2>
+    <p>
+      Reserve your slot in seconds. Choose your sport, date, and time – and
+      let the game begin!
+    </p>
+    <a href="#contact" class="pill-btn">Get in Touch to Book</a>
+  </section>
+
+  <!-- ══════════════ CONTACT SECTION ══════════════ -->
+  <section id="contact">
+    <div class="contact-parallax">
+      <div class="contact-content">
+
+        <p class="contact-eyebrow" id="contact-eyebrow">📍 Find Us</p>
+        <h2 class="contact-title" id="contact-title">Contact Us</h2>
+        <div class="contact-divider" id="contact-divider"></div>
+
+        <!-- Contact detail cards -->
+        <div class="contact-grid">
+
+          <!-- Address -->
+          <div class="contact-card" id="cc-1">
+            <div class="contact-icon-wrap">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" />
+                <circle cx="12" cy="9" r="2.5" />
+              </svg>
+            </div>
+            <span class="contact-card-label">Our Address</span>
+            <p class="contact-card-value">
+              1, Kasthuripalayam Rd,<br>
+              Brindhavan Nagar, MGR Nagar,<br>
+              Periyanaickenpalayam,<br>
+              Tamil Nadu 641020
+            </p>
+          </div>
+
+          <!-- Hours -->
+          <div class="contact-card" id="cc-2">
+            <div class="contact-icon-wrap">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <circle cx="12" cy="12" r="10" />
+                <polyline points="12 6 12 12 16 14" />
+              </svg>
+            </div>
+            <span class="contact-card-label">Opening Hours</span>
+            <p class="contact-card-value">
+              🟢&nbsp;<strong style="color:var(--gold-light)">Open 24 Hours</strong><br>
+              <span style="font-size:0.82rem;color:rgba(255,255,255,0.5)">Every day of the year</span>
+            </p>
+          </div>
+
+          <!-- Phone -->
+          <div class="contact-card" id="cc-3">
+            <div class="contact-icon-wrap">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path
+                  d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10a19.79 19.79 0 01-3.07-8.67A2 2 0 012 .18h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z" />
+              </svg>
+            </div>
+            <span class="contact-card-label">Call Us</span>
+            <p class="contact-card-value">
+              <a href="tel:08072076262">080720 76262</a>
+            </p>
+          </div>
+
+        </div>
+
+        <!-- Google Map embed -->
+        <div class="contact-map-wrap" id="contact-map">
+          <iframe title="GOAT Academy Location" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+            src="https://www.google.com/maps?q=1,+Kasthuripalayam+Rd,+Brindhavan+Nagar,+MGR+Nagar,+Periyanaickenpalayam,+Tamil+Nadu+641020&output=embed">
+          </iframe>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════ FOOTER ══════════════ -->
+  <footer>
+    <p>&copy; 2026 <span>GOAT – Game On Academy &amp; Turf</span>. All rights reserved.</p>
+  </footer>
+
+  <!-- ══════════════ SCRIPTS ══════════════ -->
+  <script>
+    /* ── Hamburger Toggle ── */
+    const hamburger = document.getElementById('hamburger');
+    const nav = document.getElementById('main-nav');
+
+    hamburger.addEventListener('click', () => {
+      const isOpen = nav.classList.toggle('open');
+      hamburger.classList.toggle('open', isOpen);
+      hamburger.setAttribute('aria-expanded', isOpen);
+      document.body.style.overflow = isOpen ? 'hidden' : '';
+    });
+
+    // Close mobile nav when a link is clicked
+    nav.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        nav.classList.remove('open');
+        hamburger.classList.remove('open');
+        hamburger.setAttribute('aria-expanded', false);
+        document.body.style.overflow = '';
+      });
+    });
+
+    /* ── Sticky header style on scroll ── */
+    const header = document.getElementById('site-header');
+    window.addEventListener('scroll', () => {
+      header.classList.toggle('scrolled', window.scrollY > 50);
+    }, { passive: true });
+
+    /* ── Active nav link on scroll ── */
+    const sections = document.querySelectorAll('section[id], .hero[id]');
+    const navLinks = {
+      home: document.getElementById('nav-home'),
+      football: document.getElementById('nav-football'),
+      cricket: document.getElementById('nav-cricket'),
+      booking: document.getElementById('nav-booking'),
+      contact: document.getElementById('nav-contact'),
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          Object.values(navLinks).forEach(l => l && l.classList.remove('active'));
+          const id = entry.target.id;
+          if (navLinks[id]) navLinks[id].classList.add('active');
+        }
+      });
+    }, { threshold: 0.35 });
+
+    sections.forEach(s => observer.observe(s));
+
+    /* ── Fade-up on scroll ── */
+    const fadeEls = document.querySelectorAll('.fade-up');
+    const fadeObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          fadeObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+
+    fadeEls.forEach(el => fadeObserver.observe(el));
+
+    /* ══════════════════════════════════════
+       FOOTBALL SECTION ANIMATIONS
+    ══════════════════════════════════════ */
+    const ballWrap = document.getElementById('ball-wrap');
+    const footballTitle = document.getElementById('football-title');
+    const footballIntro = document.getElementById('football-intro');
+    const achieveHeading = document.getElementById('achievements-heading');
+    const achCard1 = document.getElementById('ach-card-1');
+    const achCard2 = document.getElementById('ach-card-2');
+    const footballCta = document.getElementById('football-cta');
+
+    // Trigger: when the football section enters the viewport
+    const footballSection = document.getElementById('football');
+    let footballAnimated = false;
+
+    const footballObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting && !footballAnimated) {
+          footballAnimated = true;
+          footballObserver.disconnect();
+
+          // 1. Ball spins in on entry
+          ballWrap.classList.add('animate');
+
+          // 2. Title fades up (slight delay)
+          setTimeout(() => footballTitle.classList.add('animate'), 300);
+
+          // 3. Intro paragraph
+          setTimeout(() => footballIntro.classList.add('animate'), 550);
+
+          // 4. Achievements heading
+          setTimeout(() => achieveHeading.classList.add('animate'), 750);
+
+          // 5. Cards slide in from sides
+          setTimeout(() => achCard1.classList.add('animate-left'), 950);
+          setTimeout(() => achCard2.classList.add('animate-right'), 950);
+
+          // 6. CTA fades up
+          setTimeout(() => footballCta.classList.add('animate'), 1200);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    footballObserver.observe(footballSection);
+
+    /* ══════════════════════════════════════
+       CRICKET SECTION ANIMATIONS
+    ══════════════════════════════════════ */
+    const cballWrap = document.getElementById('cball-wrap');
+    const cricketTitle = document.getElementById('cricket-title');
+    const cricketIntro = document.getElementById('cricket-intro');
+    const cricketFeatHead = document.getElementById('cricket-features-heading');
+    const cfCard1 = document.getElementById('cf-card-1');
+    const cfCard2 = document.getElementById('cf-card-2');
+    const cfCard3 = document.getElementById('cf-card-3');
+    const cricketCta = document.getElementById('cricket-cta');
+    const cricketSection = document.getElementById('cricket');
+    let cricketAnimated = false;
+
+    const cricketObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting && !cricketAnimated) {
+          cricketAnimated = true;
+          cricketObserver.disconnect();
+
+          cballWrap.classList.add('animate');
+          setTimeout(() => cricketTitle.classList.add('animate'), 300);
+          setTimeout(() => cricketIntro.classList.add('animate'), 550);
+          setTimeout(() => cricketFeatHead.classList.add('animate'), 750);
+          setTimeout(() => cfCard1.classList.add('animate-left'), 950);
+          setTimeout(() => cfCard2.classList.add('animate-up'), 950);
+          setTimeout(() => cfCard3.classList.add('animate-right'), 950);
+          setTimeout(() => cricketCta.classList.add('animate'), 1200);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    cricketObserver.observe(cricketSection);
+
+    /* ── Turf image slideshow for cricket parallax ── */
+    const cricketSlides = document.querySelectorAll('#cricket-parallax .cricket-slide');
+    let currentSlide = 0;
+
+    function nextCricketSlide() {
+      cricketSlides[currentSlide].classList.remove('active');
+      currentSlide = (currentSlide + 1) % cricketSlides.length;
+      cricketSlides[currentSlide].classList.add('active');
+    }
+
+    // Start cycling once section is nearly visible
+    const slideshowObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          setInterval(nextCricketSlide, 3500);
+          slideshowObserver.disconnect();
+        }
+      });
+    }, { threshold: 0.05 });
+
+    slideshowObserver.observe(cricketSection);
+
+    /* ══════════════════════════════════════
+       CONTACT SECTION ANIMATIONS
+    ══════════════════════════════════════ */
+    const contactSection = document.getElementById('contact');
+    let contactAnimated = false;
+
+    const contactObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting && !contactAnimated) {
+          contactAnimated = true;
+          contactObserver.disconnect();
+
+          document.getElementById('contact-eyebrow').classList.add('animate');
+          setTimeout(() => document.getElementById('contact-title').classList.add('animate'), 200);
+          setTimeout(() => document.getElementById('contact-divider').classList.add('animate'), 400);
+          setTimeout(() => document.getElementById('cc-1').classList.add('animate-left'), 580);
+          setTimeout(() => document.getElementById('cc-2').classList.add('animate-up'), 580);
+          setTimeout(() => document.getElementById('cc-3').classList.add('animate-right'), 580);
+          setTimeout(() => document.getElementById('contact-map').classList.add('animate'), 800);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    contactObserver.observe(contactSection);
+
+    /* ══════════════════════════════════════════════════════
+       NEW DAY → NIGHT SCI-FI SCROLL ANIMATION & PARALLAX
+    ══════════════════════════════════════════════════════ */
+    document.addEventListener("DOMContentLoaded", () => {
+      const leftPlayer = document.getElementById('left-player');
+      const rightPlayer = document.getElementById('right-player');
+      const centerContent = document.getElementById('hero-center');
+      const bgSky = document.getElementById('hero-bg-sky');
+      const sun = document.getElementById('hero-sun');
+      const moon = document.getElementById('hero-moon');
+      const lights = document.getElementById('stadium-lights');
+      const heroSection = document.getElementById('home');
+
+      // Trigger entry animations after brief delay
+      setTimeout(() => {
+        if (leftPlayer) leftPlayer.classList.add('animate-in');
+        if (rightPlayer) rightPlayer.classList.add('animate-in');
+        if (centerContent) centerContent.classList.add('animate-in');
+      }, 150);
+
+      // Scroll Linked Animations
+      window.addEventListener('scroll', () => {
+        const scrollY = window.scrollY;
+        const heroHeight = heroSection.offsetHeight;
+
+        // Stop calculating if scrolled past hero section significantly
+        if (scrollY > heroHeight * 1.5) return;
+
+        // Progress from 0 to 1 based on scrolling through the hero section
+        let progress = scrollY / heroHeight;
+        progress = max(min(progress, 1.2), 0);
+
+        // 1. Sun Movement (Arc from left to right, fade out on right)
+        const sunX = progress * (window.innerWidth + 400);
+        let sunY = -Math.sin(progress * Math.PI) * (heroHeight * 0.6); // Arcs high
+        if (sun) {
+          sun.style.transform = `translate(${sunX}px, ${sunY + scrollY * 0.4}px)`;
+          sun.style.opacity = Math.max(1 - (progress * 1.5), 0); // Fades as it moves right
+        }
+
+        // 2. Moon Movement (Arc from right to left, fade in then out)
+        if (progress > 0.3) {
+          const mProgress = min((progress - 0.3) * 1.5, 1); // scale 0 to 1 over the remaining scroll
+          if (moon) moon.style.opacity = Math.sin(mProgress * Math.PI); // Fades in then out
+          const moonY = -Math.sin(mProgress * Math.PI) * (heroHeight * 0.5);
+          const moonX = -mProgress * (window.innerWidth + 400);
+          if (moon) moon.style.transform = `translate(${moonX}px, ${moonY + scrollY * 0.2}px)`;
+        } else {
+          if (moon) moon.style.opacity = 0;
+        }
+
+        // 3. Sky Transition (Greenish Day -> Night Blue)
+        if (bgSky) {
+          if (progress < 0.4) {
+            bgSky.style.background = 'linear-gradient(to bottom, #1a4a2b 0%, #0d2b1a 60%, #05120a 100%)';
+          } else if (progress < 0.7) {
+            bgSky.style.background = 'linear-gradient(to bottom, #0f2c25 0%, #081a17 40%, #05120a 100%)';
+          } else {
+            bgSky.style.background = 'linear-gradient(to bottom, #010408 0%, #0a1122 40%, #05120a 100%)';
+          }
+          // Parallax for sky
+          bgSky.style.transform = `translateY(${scrollY * 0.4}px)`;
+        }
+
+        // 4. Stadium Lights
+        if (lights) {
+          if (progress > 0.55) {
+            lights.style.opacity = Math.min((progress - 0.55) * 4, 1);
+          } else {
+            lights.style.opacity = 0;
+          }
+        }
+
+        // 5. Parallax for Players and Content
+        const textOffset = scrollY * -0.15; // text moves slower (down relative to default scroll)
+        const playerYOffset = scrollY * -0.45; // Risen effect: move upwards faster on scroll
+        const playerScale = 1 + scrollY * 0.001; // Scale up on scroll
+        const playerXOffsetOut = scrollY * 0.3; // Slide out laterally
+
+        if (centerContent) centerContent.style.transform = `translateY(${textOffset}px)`;
+        if (leftPlayer) {
+          leftPlayer.style.transform = `translate(calc(${leftPlayer.classList.contains('animate-in') ? '0%' : '-120%'} - ${playerXOffsetOut}px), ${playerYOffset}px) scale(${playerScale})`;
+        }
+        if (rightPlayer) {
+          rightPlayer.style.transform = `translate(calc(${rightPlayer.classList.contains('animate-in') ? '0%' : '120%'} + ${playerXOffsetOut}px), ${playerYOffset}px) scale(${playerScale})`;
+        }
+      });
+
+      function min(a, b) { return Math.min(a, b); }
+      function max(a, b) { return Math.max(a, b); }
+    });
+
+    /* ══════════════════════════════════════════════════════
+       FOOTBALL PHOTO SLIDESHOW
+    ══════════════════════════════════════════════════════ */
+    const footballSlides = document.querySelectorAll('#football-parallax .football-slide');
+    const footballDots   = document.querySelectorAll('#football-slide-dots .football-slide-dot');
+    let currentFootballSlide = 0;
+    let footballSlideTimer = null;
+
+    function goToFootballSlide(idx) {
+      footballSlides[currentFootballSlide].classList.remove('active');
+      footballDots[currentFootballSlide].classList.remove('active');
+      currentFootballSlide = (idx + footballSlides.length) % footballSlides.length;
+      footballSlides[currentFootballSlide].classList.add('active');
+      footballDots[currentFootballSlide].classList.add('active');
+    }
+
+    function nextFootballSlide() {
+      goToFootballSlide(currentFootballSlide + 1);
+    }
+
+    // Manual control via dots
+    footballDots.forEach(dot => {
+      dot.addEventListener('click', () => {
+        clearInterval(footballSlideTimer);
+        goToFootballSlide(parseInt(dot.dataset.idx));
+        footballSlideTimer = setInterval(nextFootballSlide, 4000);
+      });
+    });
+
+    // Start auto-cycling when the section is visible
+    const footballSlideObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          footballSlideTimer = setInterval(nextFootballSlide, 4000);
+          footballSlideObserver.disconnect();
+        }
+      });
+    }, { threshold: 0.05 });
+
+    footballSlideObserver.observe(document.getElementById('football'));
+
+    /* ══════════════════════════════════════════════════════
+       GLOWING ICON & BACKGROUND REMOVAL FEATURE
+    ══════════════════════════════════════════════════════ */
+    function processAndSetup(img) {
+      if (img.dataset.processed) return;
+      img.dataset.processed = "true";
+
+      // Use natural alpha values of the transparent PNG images
+      img.style.mixBlendMode = 'normal';
+      img.style.maskImage = 'none';
+      img.style.webkitMaskImage = 'none';
+      img.style.background = 'transparent';
+
+      const container = img.parentElement;
+      const glow = container.querySelector('.player-glow');
+
+      // Interactive floating animation
+      let floatTime = Math.random() * 100;
+      let targetRot = 0;
+      let currentRot = 0;
+
+      // Mouse interaction
+      container.addEventListener('mousemove', (e) => {
+        const rect = container.getBoundingClientRect();
+        const x = e.clientX - rect.left - rect.width / 2;
+        targetRot = x * 0.05; // tilt slightly based on mouse position
+        if (glow) {
+          glow.style.opacity = '0.9';
+          glow.style.transform = 'translate(-50%, -50%) scale(1.35)';
+        }
+      });
+      container.addEventListener('mouseleave', () => {
+        targetRot = 0;
+        if (glow) {
+          glow.style.opacity = '0.4';
+          glow.style.transform = 'translate(-50%, -50%) scale(1)';
+        }
+      });
+
+      function floatAnim() {
+        floatTime += 0.04;
+        const floatY = Math.sin(floatTime) * 15; // Smooth bobbing
+
+        currentRot += (targetRot - currentRot) * 0.1; // Smooth interpolation to mouse interaction
+
+        img.style.transform = `translateY(${floatY}px) rotate(${currentRot}deg) scale(1.05)`;
+        requestAnimationFrame(floatAnim);
+      }
+      requestAnimationFrame(floatAnim);
+    }
+
+    const targetImages = document.querySelectorAll('#left-player img, #right-player img');
+    targetImages.forEach(img => {
+      // Allow the image to load normally on local file:// protocols
+      if (img.complete && img.naturalWidth > 0) {
+        processAndSetup(img);
+      } else {
+        img.addEventListener('load', () => processAndSetup(img));
+      }
+    });
+  </script>
+
+</body>
+
+</html>
