@@ -555,30 +555,32 @@
 
     @media (max-width: 576px) {
       .hero-player {
-        opacity: 0.2;
-        height: 55vh;
-        width: 50%;
+        opacity: 0.85;
+        height: 60vh;
+        width: 45%;
+        bottom: 0%;
       }
       
       .left-player {
-         left: -10%;
+         left: -5%;
       }
       
       .right-player {
-         right: -10%;
+         right: -5%;
       }
 
       .hero-sun {
-        width: 250px;
-        height: 250px;
-        left: -100px;
+        width: 150px;
+        height: 150px;
+        left: -50px;
+        bottom: 20%;
       }
 
       .hero-moon {
-        width: 200px;
-        height: 200px;
-        right: -100px;
-        bottom: -100px;
+        width: 120px;
+        height: 120px;
+        right: -30px;
+        bottom: -50px;
       }
 
       .hero-buttons {
@@ -2222,7 +2224,8 @@
         // 5. Parallax for Players and Content
         const textOffset = scrollY * -0.15; // text moves slower (down relative to default scroll)
         const playerYOffset = scrollY * -0.45; // Risen effect: move upwards faster on scroll
-        const playerScale = 1 + scrollY * 0.001; // Scale up on scroll
+        const isMobile = window.innerWidth <= 576;
+        const playerScale = isMobile ? 1 : (1 + scrollY * 0.001); // Don't scale up on scroll on mobile
         const playerXOffsetOut = scrollY * 0.3; // Slide out laterally
 
         if (centerContent) centerContent.style.transform = `translateY(${textOffset}px)`;
