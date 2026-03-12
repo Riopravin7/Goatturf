@@ -17,16 +17,22 @@ function calculatePrice(sport, startTime, endTime) {
 
   const startMinutes = sh * 60 + sm;
   const endMinutes = eh * 60 + em;
-  const durationHours = (endMinutes - startMinutes) / 60;
+  const durationMinutes = endMinutes - startMinutes;
 
-  if (durationHours <= 0) return null; // invalid
+  if (durationMinutes <= 0) return null; // invalid
 
-  const ratePerHour =
-    sport === 'cricket'
-      ? Number(process.env.PRICE_PER_HOUR_CRICKET) || 1000
-      : Number(process.env.PRICE_PER_HOUR_FOOTBALL) || 1000;
+  let totalPrice = 0;
+  for (let m = startMinutes; m < endMinutes; m++) {
+    const h = Math.floor(m / 60);
+    // 6 AM (6) to 6 PM (18)
+    if (h >= 6 && h < 18) {
+      totalPrice += 500 / 60;
+    } else {
+      totalPrice += 1000 / 60;
+    }
+  }
 
-  return Math.round(durationHours * ratePerHour);
+  return Math.round(totalPrice);
 }
 
 // ── Overlap checker ────────────────────────────────────

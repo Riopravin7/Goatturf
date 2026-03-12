@@ -551,7 +551,30 @@
 
     @media (max-width: 576px) {
       .hero-player {
-        display: none;
+        opacity: 0.2;
+        height: 55vh;
+        width: 50%;
+      }
+      
+      .left-player {
+         left: -10%;
+      }
+      
+      .right-player {
+         right: -10%;
+      }
+
+      .hero-sun {
+        width: 250px;
+        height: 250px;
+        left: -100px;
+      }
+
+      .hero-moon {
+        width: 200px;
+        height: 200px;
+        right: -100px;
+        bottom: -100px;
       }
 
       .hero-buttons {
@@ -1331,7 +1354,7 @@
     @media (max-width: 768px) {
       .football-slide {
         background-attachment: scroll;
-        background-position: center top;
+        background-position: center center;
       }
     }
 
@@ -1402,7 +1425,7 @@
     @media (max-width: 768px) {
       .football-parallax {
         background-attachment: scroll;
-        background-position: center top;
+        background-position: center center;
       }
     }
 
@@ -1659,7 +1682,7 @@
       <a href="#home" class="active" id="nav-home">Home</a>
       <a href="#football" id="nav-football">Football</a>
       <a href="#cricket" id="nav-cricket">Cricket</a>
-      <a href="#booking" id="nav-booking">Booking</a>
+      <a href="booking.html" id="nav-booking">Booking</a>
       <a href="#contact" id="nav-contact">Contact Us</a>
     </nav>
   </header>
@@ -1692,7 +1715,7 @@
       <h1 class="hero-main-title">Train Like a Champion</h1>
       <p class="hero-subtext">Football and Cricket Summer Camp Training</p>
       <div class="hero-buttons">
-        <a href="#booking" class="hero-btn primary-btn">Book Your Slot</a>
+        <a href="booking.html" class="hero-btn primary-btn">Book Your Slot</a>
         <a href="#football" class="hero-btn secondary-btn">View Achievements</a>
       </div>
     </div>
@@ -1851,17 +1874,6 @@
 
   </section>
 
-  <!-- ══════════════ BOOKING SECTION ══════════════ -->
-  <section class="placeholder fade-up" id="booking">
-    <div class="section-icon">📅</div>
-    <h2>Booking</h2>
-    <p>
-      Reserve your slot in seconds. Choose your sport, date, and time – and
-      let the game begin!
-    </p>
-    <a href="#contact" class="pill-btn">Get in Touch to Book</a>
-  </section>
-
   <!-- ══════════════ CONTACT SECTION ══════════════ -->
   <section id="contact">
     <div class="contact-parallax">
@@ -1916,7 +1928,7 @@
             </div>
             <span class="contact-card-label">Call Us</span>
             <p class="contact-card-value">
-              <a href="tel:08072076262">080720 76262</a>
+              <a href="tel:+918072076262">+91 80720 76262</a>
             </p>
           </div>
 
@@ -2321,6 +2333,13 @@
         img.addEventListener('load', () => processAndSetup(img));
       }
     });
+
+    window.addEventListener('load', () => {
+      if (performance.navigation.type === 1 || (window.performance && window.performance.getEntriesByType("navigation").length && window.performance.getEntriesByType("navigation")[0].type === "reload")) {
+        window.location.replace(window.location.pathname);
+      }
+    });
+
   </script>
 
 </body>
