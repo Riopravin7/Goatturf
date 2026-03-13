@@ -649,9 +649,7 @@
     // ── Config ──
     // In production, replace with your Render backend URL
     // e.g. 'https://goat-turf-backend.onrender.com'
-    const API_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
-      ? 'http://localhost:5000'
-      : 'https://goatturf.onrender.com';  // ← UPDATE THIS after deploying backend
+    const API_URL = 'https://goatturf.onrender.com';
     const PRICE_PER_HOUR = { cricket: 1000, football: 1000 };
 
     // ── DOM Elements ──
