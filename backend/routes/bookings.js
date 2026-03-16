@@ -10,7 +10,7 @@ const supabase = require('../config/supabase');
 const razorpay = require('../config/razorpay');
 
 // ── Pricing helper ─────────────────────────────────────
-function calculatePrice(sport, startTime, endTime) {
+function calculatePrice(sport, startTime, endTime, players) {
   // Parse "HH:MM" to hours
   const [sh, sm] = startTime.split(':').map(Number);
   const [eh, em] = endTime.split(':').map(Number);
@@ -21,18 +21,19 @@ function calculatePrice(sport, startTime, endTime) {
 
   if (durationMinutes <= 0) return null; // invalid
 
-  let totalPrice = 0;
+  let basePrice = 0;
   for (let m = startMinutes; m < endMinutes; m++) {
     const h = Math.floor(m / 60);
-    // 6 AM (6) to 6 PM (18)
+    // 6 AM (6) to 6 PM (18): ₹500/player/hr, otherwise ₹1000/player/hr
     if (h >= 6 && h < 18) {
-      totalPrice += 500 / 60;
+      basePrice += 500 / 60;
     } else {
-      totalPrice += 1000 / 60;
+      basePrice += 1000 / 60;
     }
   }
 
-  return Math.round(totalPrice);
+  // Multiply by number of players
+  return Math.round(basePrice * (players || 1));
 }
 
 // ── Overlap checker ────────────────────────────────────
@@ -150,8 +151,8 @@ router.post('/create-booking', async (req, res) => {
       });
     }
 
-    // ── Step 2: Calculate price ──
-    const price = calculatePrice(sport, start_time, end_time);
+    // ── Step 2: Calculate price (per player per hour) ──
+    const price = calculatePrice(sport, start_time, end_time, Number(players));
     if (!price || price <= 0) {
       return res.status(400).json({
         success: false,

@@ -771,6 +771,7 @@
       const sport = document.querySelector('input[name="sport"]:checked').value;
       const start = startInput.value;
       const end = endInput.value;
+      const players = parseInt(document.getElementById('players').value) || 1;
 
       if (!start || !end || end <= start) {
         pricePreview.style.display = 'none';
@@ -785,23 +786,25 @@
       const durationMin = endMin - startMin;
       const durationHrs = durationMin / 60;
       
-      let total = 0;
+      // Base rate per player per minute
+      let baseTotal = 0;
       for (let m = startMin; m < endMin; m++) {
         const h = Math.floor(m / 60);
         if (h >= 6 && h < 18) {
-          total += 500 / 60;
+          baseTotal += 500 / 60;   // ₹500/player/hr during day
         } else {
-          total += 1000 / 60;
+          baseTotal += 1000 / 60;  // ₹1000/player/hr at night
         }
       }
-      total = Math.round(total);
+      // Multiply by number of players
+      const total = Math.round(baseTotal * players);
 
       let rateText = "Mixed Rate";
-      if (sh >= 6 && eh <= 18) rateText = "₹500/hr (Day)";
-      else if (sh >= 18 || eh <= 6) rateText = "₹1000/hr (Night)";
+      if (sh >= 6 && eh <= 18) rateText = `₹500/player/hr (Day)`;
+      else if (sh >= 18 || eh <= 6) rateText = `₹1000/player/hr (Night)`;
 
       document.getElementById('preview-sport').textContent = sport.charAt(0).toUpperCase() + sport.slice(1);
-      document.getElementById('preview-duration').textContent = `${Number.isInteger(durationHrs) ? durationHrs : durationHrs.toFixed(1)} hour${durationHrs !== 1 ? 's' : ''}`;
+      document.getElementById('preview-duration').textContent = `${Number.isInteger(durationHrs) ? durationHrs : durationHrs.toFixed(1)} hour${durationHrs !== 1 ? 's' : ''} × ${players} player${players !== 1 ? 's' : ''}`;
       document.getElementById('preview-rate').textContent = rateText;
       document.getElementById('preview-total').textContent = `₹${total.toLocaleString('en-IN')}`;
       pricePreview.style.display = 'block';
@@ -810,6 +813,7 @@
     // Listen for changes
     startInput.addEventListener('change', updatePricePreview);
     endInput.addEventListener('change', updatePricePreview);
+    document.getElementById('players').addEventListener('input', updatePricePreview);
     document.querySelectorAll('input[name="sport"]').forEach(r => r.addEventListener('change', updatePricePreview));
     updatePricePreview();
 
@@ -1020,9 +1024,9 @@
             },
           },
           prefill: {
-            name: '',
+            name: customer_name,
             email: '',
-            contact: '',
+            contact: phone,
           },
         };
 
@@ -1047,7 +1051,7 @@
 
     // ── Success overlay ──
     // Owner's WhatsApp number (with country code, no + or spaces)
-    const OWNER_WHATSAPP = '919043727654';
+    const OWNER_WHATSAPP = '918072076262';
 
     function showSuccessOverlay(booking) {
       const overlay = document.getElementById('success-overlay');
