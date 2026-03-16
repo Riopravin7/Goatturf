@@ -15,11 +15,17 @@ CREATE TABLE IF NOT EXISTS bookings (
   payment_status  TEXT NOT NULL DEFAULT 'pending' CHECK (payment_status IN ('pending', 'paid', 'cancelled')),
   razorpay_order_id   TEXT,
   razorpay_payment_id TEXT,
+  customer_name   TEXT,
+  phone           TEXT,
   created_at      TIMESTAMPTZ DEFAULT now(),
 
   -- Ensure end_time is after start_time
   CONSTRAINT valid_time_range CHECK (end_time > start_time)
 );
+
+-- ⚠️  MIGRATION: If the table already exists, run these two lines in Supabase SQL Editor:
+-- ALTER TABLE bookings ADD COLUMN IF NOT EXISTS customer_name TEXT;
+-- ALTER TABLE bookings ADD COLUMN IF NOT EXISTS phone TEXT;
 
 -- 2. Create indexes for fast overlap queries
 CREATE INDEX IF NOT EXISTS idx_bookings_date ON bookings (booking_date);

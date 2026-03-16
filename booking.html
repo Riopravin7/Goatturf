@@ -497,6 +497,35 @@
       box-shadow: 0 8px 24px rgba(201, 168, 76, 0.4);
     }
 
+    /* ─── WhatsApp Button ─── */
+    .whatsapp-btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      gap: 10px; width: 100%;
+      padding: 15px 24px; border-radius: 14px;
+      background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+      color: #ffffff; font-family: 'Outfit', sans-serif;
+      font-size: 1rem; font-weight: 700;
+      text-decoration: none; cursor: pointer;
+      border: none;
+      box-shadow: 0 8px 28px rgba(37, 211, 102, 0.35);
+      transition: all 0.35s ease;
+      margin-bottom: 14px;
+    }
+
+    .whatsapp-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 14px 40px rgba(37, 211, 102, 0.5);
+    }
+
+    .whatsapp-btn svg {
+      width: 22px; height: 22px; flex-shrink: 0;
+    }
+
+    .success-actions {
+      display: flex; flex-direction: column; gap: 0;
+      margin-top: 4px;
+    }
+
     /* ─── FOOTER ─── */
     footer {
       background: var(--green-dark);
@@ -526,11 +555,19 @@
   <!-- ══════════ SUCCESS OVERLAY ══════════ -->
   <div class="success-overlay" id="success-overlay">
     <div class="success-card">
-      <div class="success-icon">🎉</div>
+      <div class="success-icon">✅</div>
       <h2 class="success-title">Booking Confirmed!</h2>
       <p class="success-msg">Your turf session has been booked and payment verified successfully.</p>
       <div class="success-details" id="success-details"></div>
-      <a href="index.html" class="success-close-btn">Back to Home</a>
+      <div class="success-actions">
+        <a id="whatsappBtn" class="whatsapp-btn" target="_blank" rel="noopener noreferrer">
+          <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/>
+          </svg>
+          Send Booking Details to Owner via WhatsApp
+        </a>
+        <a href="index.html" class="success-close-btn">Back to Home</a>
+      </div>
     </div>
   </div>
 
@@ -564,6 +601,21 @@
                     <span class="sport-name">Cricket</span>
                   </div>
                 </label>
+              </div>
+            </div>
+
+            <!-- Customer Name & Phone -->
+            <div class="field-row" style="margin-bottom:22px;">
+              <div>
+                <label class="field-label" for="customer-name">Your Name</label>
+                <input type="text" id="customer-name" class="field-input"
+                  placeholder="e.g. Ravi" required autocomplete="name" />
+              </div>
+              <div>
+                <label class="field-label" for="customer-phone">Phone Number</label>
+                <input type="tel" id="customer-phone" class="field-input"
+                  placeholder="e.g. 9876543210" required maxlength="10"
+                  pattern="[0-9]{10}" autocomplete="tel" />
               </div>
             </div>
 
@@ -647,9 +699,7 @@
   <!-- ══════════ SCRIPTS ══════════ -->
   <script>
     // ── Config ──
-    // In production, replace with your Render backend URL
-    // e.g. 'https://goat-turf-backend.onrender.com'
-    const API_URL = 'http://localhost:5000';
+    const API_URL = 'https://goatturf.onrender.com';
     const PRICE_PER_HOUR = { cricket: 1000, football: 1000 };
 
     // ── DOM Elements ──
@@ -856,10 +906,22 @@
       const date = dateInput.value;
       const start_time = startInput.value;
       const end_time = endInput.value;
+      const customer_name = document.getElementById('customer-name').value.trim();
+      const phone = document.getElementById('customer-phone').value.trim();
 
       // Validate
       if (!sport || !players || !date || !start_time || !end_time) {
         showToast('Please fill in all fields', 'error');
+        return;
+      }
+
+      if (!customer_name) {
+        showToast('Please enter your name', 'error');
+        return;
+      }
+
+      if (!/^[0-9]{10}$/.test(phone)) {
+        showToast('Please enter a valid 10-digit phone number', 'error');
         return;
       }
 
@@ -901,7 +963,7 @@
         const bookRes = await fetch(`${API_URL}/create-booking`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ sport, players, date, start_time, end_time }),
+          body: JSON.stringify({ sport, players, date, start_time, end_time, customer_name, phone }),
         });
         const bookData = await bookRes.json();
 
@@ -984,18 +1046,48 @@
     }
 
     // ── Success overlay ──
+    // Owner's WhatsApp number (with country code, no + or spaces)
+    const OWNER_WHATSAPP = '919043727654';
+
     function showSuccessOverlay(booking) {
       const overlay = document.getElementById('success-overlay');
       const details = document.getElementById('success-details');
 
+      const formattedDate = new Date(booking.date + 'T00:00').toLocaleDateString('en-IN', {
+        weekday: 'short', day: 'numeric', month: 'long', year: 'numeric'
+      });
+      const timeRange = `${formatTime(booking.start_time)} – ${formatTime(booking.end_time)}`;
+      const sportName = booking.sport.charAt(0).toUpperCase() + booking.sport.slice(1);
+
       details.innerHTML = `
-        <p><span class="sd-label">Sport</span><span class="sd-value">${booking.sport.charAt(0).toUpperCase() + booking.sport.slice(1)}</span></p>
-        <p><span class="sd-label">Date</span><span class="sd-value">${new Date(booking.date + 'T00:00').toLocaleDateString('en-IN', { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' })}</span></p>
-        <p><span class="sd-label">Time</span><span class="sd-value">${formatTime(booking.start_time)} – ${formatTime(booking.end_time)}</span></p>
+        <p><span class="sd-label">Name</span><span class="sd-value">${booking.customer_name || '—'}</span></p>
+        <p><span class="sd-label">Phone</span><span class="sd-value">${booking.phone || '—'}</span></p>
+        <p><span class="sd-label">Sport</span><span class="sd-value">${sportName}</span></p>
+        <p><span class="sd-label">Date</span><span class="sd-value">${formattedDate}</span></p>
+        <p><span class="sd-label">Time</span><span class="sd-value">${timeRange}</span></p>
         <p><span class="sd-label">Players</span><span class="sd-value">${booking.players}</span></p>
         <p><span class="sd-label">Amount Paid</span><span class="sd-value">₹${booking.price.toLocaleString('en-IN')}</span></p>
         <p><span class="sd-label">Status</span><span class="sd-value" style="color:#81c784;">✓ Confirmed</span></p>
       `;
+
+      // Build WhatsApp message dynamically
+      const message =
+`🏟️ *New Turf Booking – GOAT*
+
+*Sport:* ${sportName}
+*Date:* ${formattedDate}
+*Time:* ${timeRange}
+*Players:* ${booking.players}
+*Amount Paid:* ₹${booking.price.toLocaleString('en-IN')}
+
+*Customer:* ${booking.customer_name || '—'}
+*Phone:* ${booking.phone || '—'}
+
+Booking ID: ${booking.id}`;
+
+      const encodedMessage = encodeURIComponent(message);
+      const whatsappLink = `https://wa.me/${OWNER_WHATSAPP}?text=${encodedMessage}`;
+      document.getElementById('whatsappBtn').href = whatsappLink;
 
       overlay.classList.add('show');
     }

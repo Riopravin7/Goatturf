@@ -110,13 +110,20 @@ router.post('/check-slot', async (req, res) => {
 // ─────────────────────────────────────────────────────
 router.post('/create-booking', async (req, res) => {
   try {
-    const { sport, players, date, start_time, end_time } = req.body;
+    const { sport, players, date, start_time, end_time, customer_name, phone } = req.body;
 
     // Validate input
     if (!sport || !players || !date || !start_time || !end_time) {
       return res.status(400).json({
         success: false,
         message: 'Missing required fields: sport, players, date, start_time, end_time',
+      });
+    }
+
+    if (!customer_name || !phone) {
+      return res.status(400).json({
+        success: false,
+        message: 'Missing required fields: customer_name, phone',
       });
     }
 
@@ -178,6 +185,8 @@ router.post('/create-booking', async (req, res) => {
         price,
         payment_status: 'pending',
         razorpay_order_id: razorpayOrder.id,
+        customer_name: customer_name.trim(),
+        phone: phone.trim(),
       })
       .select()
       .single();

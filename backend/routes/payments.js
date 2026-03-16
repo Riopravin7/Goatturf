@@ -83,6 +83,8 @@ router.post('/verify-payment', async (req, res) => {
         end_time: booking.end_time,
         price: booking.price,
         status: booking.payment_status,
+        customer_name: booking.customer_name,
+        phone: booking.phone,
       },
     });
   } catch (err) {
