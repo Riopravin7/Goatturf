@@ -37,13 +37,13 @@ function calculatePrice(sport, startTime, endTime) {
 
 // ── Overlap checker ────────────────────────────────────
 // Returns true if the requested slot overlaps with any
-// PAID or PENDING booking on the given date.
+// PAID booking on the given date.
 async function hasOverlap(date, startTime, endTime, excludeId = null) {
   let query = supabase
     .from('bookings')
     .select('id, start_time, end_time, payment_status')
     .eq('booking_date', date)
-    .in('payment_status', ['paid', 'pending'])
+    .eq('payment_status', 'paid')
     .lt('start_time', endTime)   // existing_start < new_end
     .gt('end_time', startTime);  // existing_end   > new_start
 
@@ -240,7 +240,7 @@ router.get('/bookings', async (req, res) => {
       .from('bookings')
       .select('id, sport, players, booking_date, start_time, end_time, price, payment_status, created_at')
       .eq('booking_date', date)
-      .in('payment_status', ['paid', 'pending'])
+      .eq('payment_status', 'paid')
       .order('start_time', { ascending: true });
 
     if (error) {

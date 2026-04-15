@@ -1,14 +1,14 @@
 // ══════════════════════════════════════════════════════
 //  Cleanup Utility
-//  Deletes pending bookings older than 10 minutes
+//  Deletes pending bookings older than 0 seconds
 //  to prevent slot blocking by abandoned checkouts
 // ══════════════════════════════════════════════════════
 const supabase = require('../config/supabase');
 
 async function cleanupPendingBookings() {
   try {
-    // Calculate the cutoff time: 10 minutes ago
-    const cutoff = new Date(Date.now() - 10 * 60 * 1000).toISOString();
+    // Calculate the cutoff time: 0 seconds
+    const cutoff = new Date(Date.now()).toISOString();
 
     const { data, error } = await supabase
       .from('bookings')

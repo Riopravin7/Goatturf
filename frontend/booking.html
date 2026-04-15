@@ -734,7 +734,7 @@
   <!-- ══════════ SCRIPTS ══════════ -->
   <script>
     // ── Config ──
-    const API_URL = 'https://goatturf.onrender.com';
+    const API_URL = 'http://localhost:5000';
     const PRICE_PER_HOUR = { cricket: 1000, football: 1000 };
 
     // ── DOM Elements ──
@@ -1016,7 +1016,6 @@
           order_id: bookData.order.id,
           name: 'GOAT – Game On Academy & Turf',
           description: `${sport.charAt(0).toUpperCase() + sport.slice(1)} Turf Booking | ${formatTime(start_time)} – ${formatTime(end_time)}`,
-          image: 'logo.jpg.jpeg',
           theme: { color: '#1a4a2b' },
           handler: async function (response) {
             // ── Step 4: Verify payment ──
