@@ -29,7 +29,7 @@ app.use(cors({
     if (allowedOrigins.includes(origin)) {
       return callback(null, true);
     }
-    return callback(null, true); // Allow all origins for now; tighten in production
+    return callback(new Error('CORS Policy: Origin not allowed'), false);
   },
   methods: ['GET', 'POST'],
   credentials: true,
