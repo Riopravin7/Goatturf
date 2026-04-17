@@ -68,17 +68,21 @@ app.use((err, req, res, next) => {
   res.status(500).json({ error: 'Internal server error' });
 });
 
-// ── Start server ──────────────────────────────────────
-app.listen(PORT, () => {
-  console.log('');
-  console.log('══════════════════════════════════════════');
-  console.log(`  🏟️  GOAT Turf Backend running`);
-  console.log(`  🌐  http://localhost:${PORT}`);
-  console.log('══════════════════════════════════════════');
-  console.log('');
+// ── Start server / Export app ───────────────────────────
+if (require.main === module) {
+  app.listen(PORT, () => {
+    console.log('');
+    console.log('══════════════════════════════════════════');
+    console.log(`  🏟️  GOAT Turf Backend running`);
+    console.log(`  🌐  http://localhost:${PORT}`);
+    console.log('══════════════════════════════════════════');
+    console.log('');
 
-  // Start periodic cleanup of stale pending bookings (every 2 minutes)
-  setInterval(cleanupPendingBookings, 2 * 60 * 1000);
-  // Also run once on startup
-  cleanupPendingBookings();
-});
+    // Start periodic cleanup of stale pending bookings (every 2 minutes)
+    setInterval(cleanupPendingBookings, 2 * 60 * 1000);
+    // Also run once on startup
+    cleanupPendingBookings();
+  });
+}
+
+module.exports = app;
